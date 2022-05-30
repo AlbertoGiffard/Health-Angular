@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col-md-6 mx-auto mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="text-center">Login</h1>
+                <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                    <div class="form-group">
+                        <label for="email">
+                            Email
+                        </label>
+                        <input type="email" class="form-control" formControlName="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">
+                            Password
+                        </label>
+                        <input type="password" class="form-control" formControlName="password">
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-lg w-100">
+                        Login
+                    </button>
+                </form>
+                <div class="form-group mt-3">
+                    <p>
+                        Eres nuevo?
+                        <a [routerLink]="['/registro']">
+                            Registrate
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template [ngIf]="created">
+        <div class="row">
+            <div class="col-md-6 mx-auto mt-1">
+                <div class="card p-3 alert alert-danger" role="alert">
+                    <span>
+                        {{errorMessage}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>
+<div class="row">
+    <div class="col-md-2 mx-auto mt-5">
+        <div class="card">
+            <a class="btn btn-warning btn.lg w-80" (click)="usuarioPreCargado()">
+                Usuario Cargado
+            </a>
+        </div>
+    </div>
+</div>

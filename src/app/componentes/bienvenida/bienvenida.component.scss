@@ -1,0 +1,48 @@
+/* .home img{
+    width: 100%;
+    height: 850px;
+    object-position: center;
+    object-fit: cover;
+} */
+html, body {
+    height: 100%;
+}
+.home{
+    background-image: url("../../../assets/bienvenida/image-bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
+.homecontent{
+    float: right;
+}
+
+.homecontent h1{
+    font-size: 60px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.homecontent a{
+    margin-top: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    font-weight: 600;
+}
+
+.img-logo{
+    width: 135px;
+    height: auto;
+}
+
+@media screen and (max-width: 650px){
+    .homecontent h1{
+        font-size: 40px;
+    }
+    .homecontent a{
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+

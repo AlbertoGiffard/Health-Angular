@@ -1,0 +1,50 @@
+<app-loading (cargado)="renderizar($event)"></app-loading>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="paraMostrar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="\">Clinica Giffard</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse justify-content-end" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link active" [routerLink]="['/']">
+              Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/about']">
+              About
+            </a>
+          </li>          
+        </ul>
+        <!-- <ul class="navbar-nav mr-auto" *ngIf="user$ | async as user;else login">                   
+          <li class="nav-item" *ngIf = "user">
+            <a class="nav-link" (click)="onLogout()">
+              Logout
+            </a>
+          </li>                    
+          <li class="nav-item" *ngIf = "user">
+            <label class="nav-link">
+              {{ user.firstName ? user.firstName : user.email }}
+            </label>
+          </li>         
+        </ul>
+        <ng-template #login> -->
+          <ul class="navbar-nav mr-auto"> 
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/login']">
+                Login
+              </a>
+            </li> 
+            <li class="nav-item">
+              <a class="nav-link"[routerLink]="['/registro']">
+                Registrarse
+              </a>
+            </li> 
+          </ul>
+      </div>
+    </div>
+  </nav>
