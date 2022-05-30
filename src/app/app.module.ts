@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
-import { LoadingComponent } from './componentes/loading/loading.component';
 
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
@@ -17,12 +16,17 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { PacienteComponent } from './clases/paciente/paciente.component';
+import { EspecialistaComponent } from './clases/especialista/especialista.component';
+import { AdministradorComponent } from './clases/administrador/administrador.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    LoadingComponent
+    PacienteComponent,
+    EspecialistaComponent,
+    AdministradorComponent
   ],
   imports: [
     BrowserModule,

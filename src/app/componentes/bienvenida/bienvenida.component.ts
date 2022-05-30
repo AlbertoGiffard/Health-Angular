@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-bienvenida',
@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bienvenida.component.scss']
 })
 export class BienvenidaComponent implements OnInit {
+  @Input() paraMostrar: boolean;
 
-  constructor() { }
+  constructor() {
+    this.paraMostrar = false;
+   }
 
   ngOnInit(): void {
+  }
+
+  renderizar = (mostrar: boolean) => {
+    this.paraMostrar = !mostrar;
   }
 
 }

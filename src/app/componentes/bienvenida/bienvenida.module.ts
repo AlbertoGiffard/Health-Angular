@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { BienvenidaRoutingModule } from './bienvenida-routing.module';
 import { BienvenidaComponent } from './bienvenida.component';
+import { CargandoModule } from '../cargando/cargando.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { BienvenidaComponent } from './bienvenida.component';
   ],
   imports: [
     CommonModule,
-    BienvenidaRoutingModule
+    BienvenidaRoutingModule,
+    CargandoModule
   ]
 })
 export class BienvenidaModule { }

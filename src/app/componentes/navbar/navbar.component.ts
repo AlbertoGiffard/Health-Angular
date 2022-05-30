@@ -8,20 +8,15 @@ import { LoginService } from 'src/app/servicios/login.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
-  @Input() paraMostrar: boolean;
+export class NavbarComponent implements OnInit {  
   //public user$: Observable<any> = this.authService.afAuth.user;
 
   constructor(private authService: LoginService, private router: Router) {
-    this.paraMostrar = false;
+    
   }
 
   ngOnInit(): void {
 
-  }
-
-  renderizar = (mostrar: boolean) => {
-    this.paraMostrar = !mostrar;
   }
 
   async onLogout() {

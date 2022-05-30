@@ -13,15 +13,14 @@ export class LoginService {
   }
 
   async login(email: string, password: string) {
-    const user = { email: email, password: password };
     const result = await this.afAuth.signInWithEmailAndPassword(email, password);
     return result;
   }
 
-  async register(name: string, email: string, password: string) {
-
-    const user = { name: name, email: email, password: password };
-    const result = await this.afAuth.createUserWithEmailAndPassword(email, password);
+  async register(user: any) {
+    //probar esto
+    //const user = { name: name, email: email, password: password };
+    const result = await this.afAuth.createUserWithEmailAndPassword(user.email, user.password);
     this.firestore.collection('usuarios').add(user);
 
     return result;

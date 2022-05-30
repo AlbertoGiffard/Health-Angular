@@ -1,11 +1,11 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-loading',
-  templateUrl: './loading.component.html',
-  styleUrls: ['./loading.component.scss']
+  selector: 'app-cargando',
+  templateUrl: './cargando.component.html',
+  styleUrls: ['./cargando.component.scss']
 })
-export class LoadingComponent implements OnInit {
+export class CargandoComponent implements OnInit {
   @Output() cargado: EventEmitter<boolean> = new EventEmitter<boolean>();
   show: boolean;
 

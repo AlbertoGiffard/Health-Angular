@@ -31,13 +31,13 @@ export class RegistroComponent implements OnInit {
     const { name, email, password } = this.registerForm.value;
 
     try {
-      const user = await this.authService.register(name, email, password);          
+      //const user = await this.authService.register(name, email, password);          
 
-      if (user) {
+      /* if (user) {
         //redirect to home
         this.created = false;
         this.router.navigate(['/']);
-      }
+      } */
 
     } catch (error) {
       if (error instanceof FirebaseError) {
