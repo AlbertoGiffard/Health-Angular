@@ -13,6 +13,8 @@ import { FirebaseError } from 'firebase/app';
 export class RegistroComponent implements OnInit {
   public created: boolean = false;
   public errorMessage: string;
+  public tipo: string;
+  public paciente: boolean;
 
   registerForm = new FormGroup({
     name: new FormControl(''),
@@ -22,6 +24,8 @@ export class RegistroComponent implements OnInit {
 
   constructor(private authService: LoginService, private router: Router, private auth: Auth) {
     this.errorMessage = "No se pudo crear el usuario de forma correcta verifique los datos.";
+    this.tipo = 'Paciente';
+    this.paciente = true;
   }
 
   ngOnInit(): void {
@@ -71,6 +75,16 @@ export class RegistroComponent implements OnInit {
       default: {
         return 'No se pudo crear el usuario de forma correcta verifique los datos.';
       }
+    }
+  }
+
+  MostrarForm(paciente: boolean) {
+    if (paciente) {
+      this.tipo = 'Paciente';
+      this.paciente = true;
+    } else {
+      this.tipo = 'Especialista';
+      this.paciente = false;      
     }
   }
 }

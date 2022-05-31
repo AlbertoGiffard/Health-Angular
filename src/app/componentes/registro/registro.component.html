@@ -40,21 +40,24 @@
     </div>
 </div> -->
 <div class="display-4 text-center">
-    Registrarse
+    Registrarse: {{tipo}}
 </div>
 <div class="row justify-content-center my-4">
     <div class="col-md-6 text-center">
-        <button type="button" class="btn btn-outline-info btn-lg btn-block w-75">
+        <button type="button" class="btn btn-outline-info btn-lg btn-block w-75" (click)="MostrarForm(true)">
             Soy un Paciente
         </button>
     </div>
     <div class="col-md-6 text-center">
-        <button type="button" class="btn btn-outline-success btn-lg btn-block w-75">
+        <button type="button" class="btn btn-outline-success btn-lg btn-block w-75" (click)="MostrarForm(false)">
             Soy un Especialista
         </button>
     </div>
 </div>
-<app-paciente></app-paciente>
+<app-form-paciente *ngIf="paciente;else especialista"></app-form-paciente>
+<ng-template #especialista>
+<app-form-especialista></app-form-especialista>
+</ng-template>
 <ng-template [ngIf]="created">
     <div class="row">
         <div class="col-md-6 mx-auto mt-1">
