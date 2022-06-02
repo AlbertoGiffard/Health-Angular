@@ -6,7 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./paciente.component.scss']
 })
 export class PacienteComponent implements OnInit {
+  uid: string;
   tipo: string = 'paciente';
+  estado: string = 'pendiente';
   nombre: string;
   apellido: string;
   edad: number;
@@ -18,6 +20,7 @@ export class PacienteComponent implements OnInit {
   ImagenDos: string;
 
   constructor() { 
+    this.uid = '';
     this.nombre = '';
     this.apellido = '';
     this.edad = 0;

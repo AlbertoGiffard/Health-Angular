@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth';
 import { Observable } from 'rxjs';
+import { FirestoreService } from 'src/app/servicios/firestore.service';
 import { LoginService } from 'src/app/servicios/login.service';
 
 @Component({
@@ -8,16 +11,21 @@ import { LoginService } from 'src/app/servicios/login.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {  
-  //public user$: Observable<any> = this.authService.afAuth.user;
+export class NavbarComponent implements OnInit {
+  public user$: Observable<any> = this.authService.afAuth.user;
 
-  constructor(private authService: LoginService, private router: Router) {
-    
+  constructor(private authService: LoginService, private router: Router, private auth: Auth, private firestore: FirestoreService) {
+
   }
 
   ngOnInit(): void {
-
-  }
+    try {
+      this.firestore.validarUsuario();      
+    } catch (error) {   
+      console.log('no se encontro nada...');
+         
+    }    
+  }  
 
   async onLogout() {
     try {

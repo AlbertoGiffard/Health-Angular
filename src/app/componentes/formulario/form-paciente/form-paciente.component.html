@@ -7,7 +7,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="nombre">Nombre</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre"
-                            placeholder="nombre" value="" required>
+                            placeholder="nombre"  required>
                         <small class="invalid text-danger"
                             *ngIf="form.controls['nombre'].errors?.['required'] && form.controls['nombre'].touched">
                             El nombre es requerido.
@@ -16,7 +16,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="apellido">Apellido</label>
                         <input type="text" class="form-control" id="apellido" name="apellido" formControlName="apellido"
-                            placeholder="apellido" value="" required>
+                            placeholder="apellido"  required>
                         <small class="invalid text-danger"
                             *ngIf="form.controls['apellido'].errors?.['required'] && form.controls['apellido'].touched">
                             El apellido es requerido.
@@ -60,7 +60,7 @@
                     <div class="col-md-4  mb-3">
                         <label for="obraSocial">Obra Social</label>
                         <input type="text" class="form-control" id="obraSocial" name="obraSocial" formControlName="obraSocial"
-                            placeholder="Osde" value="" required>
+                            placeholder="Osde"  required>
                         <small class="invalid text-danger"
                             *ngIf="form.controls['obraSocial'].errors?.['required'] && form.controls['obraSocial'].touched">
                             Alguna obra social es requerida.
@@ -69,18 +69,18 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6  mb-3">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" formControlName="email"
-                            placeholder="prueba@gmail.com" value="" required>
+                        <label for="mail">Email</label>
+                        <input type="email" class="form-control" id="mail" name="mail" formControlName="mail"
+                            placeholder="prueba@gmail.com" required>
                         <small class="invalid text-danger"
-                            *ngIf="form.controls['email'].errors?.['required'] && form.controls['email'].touched">
+                            *ngIf="form.controls['mail'].errors?.['required'] && form.controls['mail'].touched">
                             Algun email es requerido.
                         </small>
                     </div>
                     <div class="col-md-6  mb-3">
                         <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" name="password" formControlName="password"
-                            placeholder="******" value="" required>
+                            placeholder="******" required>
                         <small class="invalid text-danger"
                             *ngIf="form.controls['password'].errors?.['required'] && form.controls['password'].touched">
                             Algun password es requerido.
@@ -92,16 +92,16 @@
 
                     <div class="col-md-6 mb-3">
                         <label for="imagenUno">Foto de perfil</label>
-                        <input type="file" class="form-control" id="imagenUno" name="imagenUno" formControlName="imagenUno" (change)="onFileSelect($event.target)" required>
+                        <input type="file" class="form-control" id="imagenUno" name="imagenUno" formControlName="imagenUno" (change)="imagenUnoSelect($event.target)" required>
                         <small class="invalid text-danger"
-                            *ngIf="form.controls['foto_pelicula'].errors?.['required'] && form.controls['foto_pelicula'].touched">
+                            *ngIf="form.controls['imagenUno'].errors?.['required'] && form.controls['imagenUno'].touched">
                             Ingrese una imagen válida
                         </small>
                     </div>
                     
                     <div class="col-md-6 mb-3">
                         <label for="imagenDos">Foto de perfil secundaria</label>
-                        <input type="file" class="form-control" id="imagenDos" name="imagenDos" formControlName="imagenDos" (change)="onFileSelect($event.target)" required>
+                        <input type="file" class="form-control" id="imagenDos" name="imagenDos" formControlName="imagenDos" (change)="imagenDosSelect($event.target)" required>
                         <small class="invalid text-danger"
                             *ngIf="form.controls['imagenDos'].errors?.['required'] && form.controls['imagenDos'].touched">
                             Ingrese una imagen válida

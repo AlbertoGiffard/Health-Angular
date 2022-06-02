@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { AngularFireStorageReference } from '@angular/fire/compat/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FirebaseError } from 'firebase/app';
 import { PacienteComponent } from 'src/app/clases/paciente/paciente.component';
 import { FirebaseStorageService } from 'src/app/servicios/firebase-storage.service';
 import { LoginService } from 'src/app/servicios/login.service';
@@ -13,20 +15,30 @@ import Swal from 'sweetalert2';
   styleUrls: ['./form-paciente.component.scss']
 })
 export class FormPacienteComponent implements OnInit {
-  obj: any = {};
-  archivo: any;
-  nombreArchivo: string;
-  urlImagen: string;
-  urlListo: boolean;
+  mensajeError: string;
+  objUno: any = {};
+  archivoUno: any;
+  nombreArchivoUno: string;
+  objDos: any = {};
+  archivoDos: any;
+  nombreArchivoDos: string;
+  urlImagenUno: string;
+  urlImagenDos: string;
+  urlListoUno: boolean;
+  urlListoDos: boolean;
   paciente: PacienteComponent;
   form: FormGroup;
   fb: FormBuilder;
   userExist: any;
 
-  constructor(private service: LoginService, private auth: Auth, private firebaseStorage: FirebaseStorageService) {
-    this.nombreArchivo = '';
-    this.urlImagen = '';
-    this.urlListo = false;
+  constructor(private servicio: LoginService, private auth: Auth, private firebaseStorage: FirebaseStorageService, public router: Router) {
+    this.mensajeError = "No se pudo crear el paciente de forma correcta verifique los datos.";
+    this.nombreArchivoUno = '';
+    this.nombreArchivoDos = '';
+    this.urlImagenUno = '';
+    this.urlImagenDos = '';
+    this.urlListoUno = false;
+    this.urlListoDos = false;
     this.userExist = this.auth.currentUser;
     this.paciente = new PacienteComponent();
     this.fb = new FormBuilder();
@@ -50,92 +62,161 @@ export class FormPacienteComponent implements OnInit {
   }
 
   //son dos archivos
-  onFileSelect(input: any) {
+  imagenUnoSelect(input: any) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = (e: any) => {
-        this.obj.photoUrl = e.target.result;
+        this.objUno.photoUrl = e.target.result;
       }
-      this.nombreArchivo = input.files[0].name;
-      this.archivo = input.files[0];
-      
+      this.nombreArchivoUno = input.files[0].name;
+      this.archivoUno = input.files[0];
+
       //esto aca sube la foto
-      this.subirArchivo().then(() => {
-        this.referenciaCloud();
+      this.subirArchivo(true).then(() => {
+        this.referenciaCloudUno();
+      });
+    }
+  }
+
+  //son dos archivos
+  imagenDosSelect(input: any) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.objDos.photoUrl = e.target.result;
+      }
+      this.nombreArchivoDos = input.files[0].name;
+      this.archivoDos = input.files[0];
+
+      //esto aca sube la foto
+      this.subirArchivo(false).then(() => {
+        this.referenciaCloudDos();
       });
     }
   }
 
   //Sube el archivo a Cloud Storage
-  async subirArchivo() {
-    await this.firebaseStorage.uploadCloudStorage(this.nombreArchivo, this.archivo);
+  async subirArchivo(one: boolean) {
+    if (one) {
+      await this.firebaseStorage.uploadCloudStorage(this.nombreArchivoUno, this.archivoUno);
+    } else {
+      await this.firebaseStorage.uploadCloudStorage(this.nombreArchivoDos, this.archivoDos);
+    }
 
   }
 
-  async referenciaCloud() {
-    var referencia: AngularFireStorageReference = await this.firebaseStorage.getCloudStorage(this.nombreArchivo)
+  async referenciaCloudUno() {
+    var referenciaUno: AngularFireStorageReference = await this.firebaseStorage.getCloudStorage(this.nombreArchivoUno);
 
-    referencia.getDownloadURL().subscribe((url) => {
-      this.urlImagen = url;
-      this.urlListo = true;
-      console.log(this.urlListo,this.urlImagen);
-      
+    referenciaUno.getDownloadURL().subscribe((url) => {
+      this.urlImagenUno = url;
+      this.urlListoUno = true;
     });
   }
 
-  /* cargando = (pelicula: Pelicula) => {
-    if (this.urlListo) {
-      this.servicio.guardarPeliculas(pelicula).then(() => {
-        window.location.reload();
-      });
-      alert("se guardo la pelicula!");
-    } else {
-      alert('se esta subiendo la pelicula aguarde por favor');
-    }
-  } */
+  async referenciaCloudDos() {
+    var referenciaDos: AngularFireStorageReference = await this.firebaseStorage.getCloudStorage(this.nombreArchivoDos);
 
-  checkForm = () => {
+    referenciaDos.getDownloadURL().subscribe((url) => {
+      this.urlImagenDos = url;
+      this.urlListoDos = true;
+    });
+  }
+
+  async cargar(paciente: PacienteComponent) {
+    if (this.urlListoUno && this.urlListoDos) {
+      try {
+        await this.servicio.registrar(paciente).then(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Se guardo el paciente de forma correcta, te llegara un mail para verificar el usuario creado.',
+          }
+          ).then(() => {
+            this.router.navigate(['/']);
+          })
+        });
+
+      } catch (error) {
+        if (error instanceof FirebaseError) {
+          console.log(error.code);
+          Swal.fire({
+            icon: 'error',
+            title: this.convertidorDeMensaje(error.code),
+          }
+          )
+        }
+      }
+
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Se estan subiendo las imagenes aguarde por favor',
+      }
+      )
+    }
+  }
+
+  chequearForm = () => {
     var result = false;
     var answers = this.form.getRawValue();
-    console.log(answers);
-    
+    //console.log(answers);
 
-    if (answers.age != '' && answers.own != '' && answers.name != '' && answers.dni != '' && answers.country != '' && answers.capacity != '') {
+
+    if (answers.nombre != '' && answers.apellido != '' && answers.edad != '' && answers.dni != '' && answers.obraSocial != '' && answers.mail != '' && answers.password != '' && answers.imagenUno != '' && answers.imagenDos != '') {
       result = true;
     }
 
     return result;
   }
 
-  subirPaciente = () => {
-    /* if (this.checkForm()) {
-
-      this.newRepartidor.dni = this.form.controls['dni'].value;
-      this.newRepartidor.name = this.form.controls['name'].value;
-      this.newRepartidor.age = this.form.controls['age'].value;
-      this.newRepartidor.capacity = this.form.controls['capacity'].value;
-      this.newRepartidor.country = this.form.controls['country'].value;
-
-      if (this.form.controls['own'].value == 'si') {
-        this.newRepartidor.ownUnit = true;
-      } else {
-        this.newRepartidor.ownUnit = false;
+  convertidorDeMensaje(code: string): string {
+    switch (code) {
+      case 'auth/user-disabled': {
+        return 'Usuario deshabilitado.';
       }
-
-      try {
-        this.servicio.guardarRepartidores(this.newRepartidor).then(() => {
-          window.location.reload();
-        });
-        alert("se guardo el Repartidor!");
-      } catch (error) {
-        console.log(error);
+      case 'auth/user-not-found': {
+        return 'Usuario no encontrado.';
       }
+      case 'auth/wrong-password': {
+        return 'Password incorrecto intente nuevamente.';
+      }
+      case 'auth/email-already-in-use': {
+        return 'Usuario ya creado.';
+      }
+      case 'auth/weak-password': {
+        return 'Error, password debil, minimo 6 digitos.';
+      }
+      case 'auth/invalid-email': {
+        return 'Error, mail Invalido.';
+      }
+      default: {
+        return 'No se pudo crear el usuario de forma correcta verifique los datos.';
+      }
+    }
+  }
+
+  async subirPaciente() {    
+    if (this.chequearForm()) {
+      
+      this.paciente.nombre = this.form.controls['nombre'].value;
+      this.paciente.apellido = this.form.controls['apellido'].value;
+      this.paciente.edad = this.form.controls['edad'].value;
+      this.paciente.dni = this.form.controls['dni'].value;
+      this.paciente.obraSocial = this.form.controls['obraSocial'].value;
+      this.paciente.mail = this.form.controls['mail'].value;
+      this.paciente.password = this.form.controls['password'].value;
+      this.paciente.imagenUno = this.urlImagenUno;
+      this.paciente.ImagenDos = this.urlImagenDos;
+
+      this.cargar(this.paciente);
+
+
     } else {
-      Swal.fire(
-          'Falta completar campos',
-          'error'
-        )
-    } */
+      Swal.fire({
+        icon: 'error',
+        title: 'Falta completar campos',
+      })
+    }
 
   }
 }

@@ -17,13 +17,26 @@ export class LoginService {
     return result;
   }
 
-  async register(user: any) {
+  async registrar(user: any) {
     //probar esto
     //const user = { name: name, email: email, password: password };
-    const result = await this.afAuth.createUserWithEmailAndPassword(user.email, user.password);
-    this.firestore.collection('usuarios').add(user);
+    console.log(user);
+    
+    const result = await this.afAuth.createUserWithEmailAndPassword(user.mail, user.password);
+    this.firestore.collection('usuarios').add({...user}).then(() => this.verificarMail(user.mail));
 
     return result;
+  }
+
+  async verificarMail(email:string) {
+    const verificationSettings = {
+      url: 'http://localhost:4200/bienvenida',
+      handleCodeInApp: true
+    };
+
+    await this.afAuth.sendSignInLinkToEmail(email, verificationSettings).then(() => {
+      window.localStorage.setItem('emailForSignIn', email);
+    })
   }
 
   /* async guardarUser() {
