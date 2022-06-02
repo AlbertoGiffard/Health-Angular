@@ -17,13 +17,24 @@ export class LoginService {
     return result;
   }
 
+  async registrarConMail(user: any) {
+    //probar esto
+    //const user = { name: name, email: email, password: password };
+    console.log(user);
+    
+    const result = await this.afAuth.createUserWithEmailAndPassword(user.email, user.password);
+    this.firestore.collection('usuarios').add({...user}).then(() => this.verificarMail(user.email));
+
+    return result;
+  }
+
   async registrar(user: any) {
     //probar esto
     //const user = { name: name, email: email, password: password };
     console.log(user);
     
-    const result = await this.afAuth.createUserWithEmailAndPassword(user.mail, user.password);
-    this.firestore.collection('usuarios').add({...user}).then(() => this.verificarMail(user.mail));
+    const result = await this.afAuth.createUserWithEmailAndPassword(user.email, user.password);
+    this.firestore.collection('usuarios').add({...user});
 
     return result;
   }

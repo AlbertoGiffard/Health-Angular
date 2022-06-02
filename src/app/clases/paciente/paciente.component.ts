@@ -14,7 +14,7 @@ export class PacienteComponent implements OnInit {
   edad: number;
   dni: number;
   obraSocial: string;
-  mail: string;
+  email: string;
   password: string;
   imagenUno: string;
   ImagenDos: string;
@@ -26,19 +26,19 @@ export class PacienteComponent implements OnInit {
     this.edad = 0;
     this.dni = 0;
     this.obraSocial = '';
-    this.mail = '';
+    this.email = '';
     this.password = '';
     this.imagenUno = '';
     this.ImagenDos = '';
   }
 
-  setValues(nombre:string, apellido:string, edad:number, dni: number, obraSocial: string, mail: string, password: string, imagenUno: string, ImagenDos: string) {
+  setValues(nombre:string, apellido:string, edad:number, dni: number, obraSocial: string, email: string, password: string, imagenUno: string, ImagenDos: string) {
     this.nombre = nombre;
     this.apellido = apellido;
     this.edad = edad;
     this.dni = dni;
     this.obraSocial = obraSocial;
-    this.mail = mail;
+    this.email = email;
     this.password = password;
     this.imagenUno = imagenUno;
     this.ImagenDos = ImagenDos;

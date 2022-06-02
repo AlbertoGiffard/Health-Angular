@@ -69,11 +69,11 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6  mb-3">
-                        <label for="mail">Email</label>
-                        <input type="email" class="form-control" id="mail" name="mail" formControlName="mail"
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" formControlName="email"
                             placeholder="prueba@gmail.com" required>
                         <small class="invalid text-danger"
-                            *ngIf="form.controls['mail'].errors?.['required'] && form.controls['mail'].touched">
+                            *ngIf="form.controls['email'].errors?.['required'] && form.controls['email'].touched">
                             Algun email es requerido.
                         </small>
                     </div>

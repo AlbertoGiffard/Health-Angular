@@ -49,7 +49,7 @@ export class FormPacienteComponent implements OnInit {
         'edad': [, [Validators.required, Validators.min(18), Validators.max(200)]],
         'dni': [, [Validators.required, Validators.min(10000000), Validators.max(99000000)]],
         'obraSocial': ['', [Validators.required]],
-        'mail': ['', [Validators.required, Validators.email]],
+        'email': ['', [Validators.required, Validators.email]],
         'password': ['', [Validators.required]],
         'imagenUno': [Validators.required],
         'imagenDos': [Validators.required]
@@ -126,10 +126,10 @@ export class FormPacienteComponent implements OnInit {
   async cargar(paciente: PacienteComponent) {
     if (this.urlListoUno && this.urlListoDos) {
       try {
-        await this.servicio.registrar(paciente).then(() => {
+        await this.servicio.registrarConMail(paciente).then(() => {
           Swal.fire({
             icon: 'success',
-            title: 'Se guardo el paciente de forma correcta, te llegara un mail para verificar el usuario creado.',
+            title: 'Se guardo el paciente de forma correcta, te llegara un email para verificar el usuario creado.',
           }
           ).then(() => {
             this.router.navigate(['/']);
@@ -162,7 +162,7 @@ export class FormPacienteComponent implements OnInit {
     //console.log(answers);
 
 
-    if (answers.nombre != '' && answers.apellido != '' && answers.edad != '' && answers.dni != '' && answers.obraSocial != '' && answers.mail != '' && answers.password != '' && answers.imagenUno != '' && answers.imagenDos != '') {
+    if (answers.nombre != '' && answers.apellido != '' && answers.edad != '' && answers.dni != '' && answers.obraSocial != '' && answers.email != '' && answers.password != '' && answers.imagenUno != '' && answers.imagenDos != '') {
       result = true;
     }
 
@@ -187,7 +187,7 @@ export class FormPacienteComponent implements OnInit {
         return 'Error, password debil, minimo 6 digitos.';
       }
       case 'auth/invalid-email': {
-        return 'Error, mail Invalido.';
+        return 'Error, email Invalido.';
       }
       default: {
         return 'No se pudo crear el usuario de forma correcta verifique los datos.';
@@ -203,7 +203,7 @@ export class FormPacienteComponent implements OnInit {
       this.paciente.edad = this.form.controls['edad'].value;
       this.paciente.dni = this.form.controls['dni'].value;
       this.paciente.obraSocial = this.form.controls['obraSocial'].value;
-      this.paciente.mail = this.form.controls['mail'].value;
+      this.paciente.email = this.form.controls['email'].value;
       this.paciente.password = this.form.controls['password'].value;
       this.paciente.imagenUno = this.urlImagenUno;
       this.paciente.ImagenDos = this.urlImagenDos;
