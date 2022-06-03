@@ -11,6 +11,9 @@ export const environment = {
     storageBucket: "clinica-giffard.appspot.com",
     messagingSenderId: "196880322291",
     appId: "1:196880322291:web:f0015e1441f33af0793186"
+  },
+  recaptcha: {
+    siteKey: '6Lfn1j0gAAAAAD0ZTcIhAnL5xbVVf_aQ4whgf6nz',
   }
 };
 

@@ -7,7 +7,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="nombre">Nombre</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre"
-                            placeholder="nombre"  required>
+                            placeholder="nombre" required>
                         <small class="invalid text-danger"
                             *ngIf="form.controls['nombre'].errors?.['required'] && form.controls['nombre'].touched">
                             El nombre es requerido.
@@ -16,7 +16,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="apellido">Apellido</label>
                         <input type="text" class="form-control" id="apellido" name="apellido" formControlName="apellido"
-                            placeholder="apellido"  required>
+                            placeholder="apellido" required>
                         <small class="invalid text-danger"
                             *ngIf="form.controls['apellido'].errors?.['required'] && form.controls['apellido'].touched">
                             El apellido es requerido.
@@ -40,27 +40,29 @@
                             *ngIf="form.controls['edad'].errors?.['max'] && form.controls['edad'].touched">No puedes ser
                             mayor a 200 años</small>
                     </div>
-    
+
                     <div class="col-md-4  mb-3">
                         <label for="dni">DNI</label>
-                        <input type="number" class="form-control" id="dni" name="dni" formControlName="dni" placeholder="12345678"
-                            required>
+                        <input type="number" class="form-control" id="dni" name="dni" formControlName="dni"
+                            placeholder="12345678" required>
                         <small class="invalid text-danger"
                             *ngIf="form.controls['dni'].errors?.['required'] && form.controls['dni'].touched">
                             Ingrese un DNI válido.
                         </small>
                         <small class="invalid text-danger"
-                            *ngIf="form.controls['dni'].errors?.['min'] && form.controls['dni'].touched">No puedes ser menor
+                            *ngIf="form.controls['dni'].errors?.['min'] && form.controls['dni'].touched">No puedes ser
+                            menor
                             a 10.000.000</small>
                         <small class="invalid text-danger"
-                            *ngIf="form.controls['dni'].errors?.['max'] && form.controls['dni'].touched">No puedes ser mayor
+                            *ngIf="form.controls['dni'].errors?.['max'] && form.controls['dni'].touched">No puedes ser
+                            mayor
                             a 99.000.000</small>
                     </div>
 
                     <div class="col-md-4  mb-3">
                         <label for="obraSocial">Obra Social</label>
-                        <input type="text" class="form-control" id="obraSocial" name="obraSocial" formControlName="obraSocial"
-                            placeholder="Osde"  required>
+                        <input type="text" class="form-control" id="obraSocial" name="obraSocial"
+                            formControlName="obraSocial" placeholder="Osde" required>
                         <small class="invalid text-danger"
                             *ngIf="form.controls['obraSocial'].errors?.['required'] && form.controls['obraSocial'].touched">
                             Alguna obra social es requerida.
@@ -79,33 +81,43 @@
                     </div>
                     <div class="col-md-6  mb-3">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" formControlName="password"
-                            placeholder="******" required>
+                        <input type="password" class="form-control" id="password" name="password"
+                            formControlName="password" placeholder="******" required>
                         <small class="invalid text-danger"
                             *ngIf="form.controls['password'].errors?.['required'] && form.controls['password'].touched">
                             Algun password es requerido.
                         </small>
                     </div>
                 </div>
-                
+
                 <div class="row">
 
                     <div class="col-md-6 mb-3">
                         <label for="imagenUno">Foto de perfil</label>
-                        <input type="file" class="form-control" id="imagenUno" name="imagenUno" formControlName="imagenUno" (change)="imagenUnoSelect($event.target)" required>
+                        <input type="file" class="form-control" id="imagenUno" name="imagenUno"
+                            formControlName="imagenUno" (change)="imagenUnoSelect($event.target)" required>
                         <small class="invalid text-danger"
                             *ngIf="form.controls['imagenUno'].errors?.['required'] && form.controls['imagenUno'].touched">
                             Ingrese una imagen válida
                         </small>
                     </div>
-                    
+
                     <div class="col-md-6 mb-3">
                         <label for="imagenDos">Foto de perfil secundaria</label>
-                        <input type="file" class="form-control" id="imagenDos" name="imagenDos" formControlName="imagenDos" (change)="imagenDosSelect($event.target)" required>
+                        <input type="file" class="form-control" id="imagenDos" name="imagenDos"
+                            formControlName="imagenDos" (change)="imagenDosSelect($event.target)" required>
                         <small class="invalid text-danger"
                             *ngIf="form.controls['imagenDos'].errors?.['required'] && form.controls['imagenDos'].touched">
                             Ingrese una imagen válida
                         </small>
+                    </div>
+                </div>
+                <div class="col-sm-12 mb-2">
+                    <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required siteKey={{siteKey}} (resolved)="captcha($event)">
+                    </re-captcha>
+                    <div *ngIf="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)" class="invalid-feedback">
+                        <small class="invalid text-danger" *ngIf="recaptcha.errors?.['required']">Este campo es
+                            requerido</small>
                     </div>
                 </div>
                 <hr class="mb-4">

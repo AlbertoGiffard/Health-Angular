@@ -6,36 +6,39 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./especialista.component.scss']
 })
 export class EspecialistaComponent implements OnInit {
+  id: string;
   tipo: string = 'especialista';
+  estado: string = 'pendiente';
   nombre: string;
   apellido: string;
   edad: number;
   dni: number;
   especialidad: string;
-  mail: string;
+  email: string;
   password: string;
-  imagenUno: string;
+  imagen: string;
 
   constructor() { 
+    this.id = '';
     this.nombre = '';
     this.apellido = '';
     this.edad = 0;
     this.dni = 0;
     this.especialidad = '';
-    this.mail = '';
+    this.email = '';
     this.password = '';
-    this.imagenUno = '';
+    this.imagen = '';
   }
 
-  setValues(nombre:string, apellido:string, edad:number, dni: number, especialidad: string, mail: string, password: string, imagenUno: string) {
+  setValues(nombre:string, apellido:string, edad:number, dni: number, especialidad: string, email: string, password: string, imagen: string) {
     this.nombre = nombre;
     this.apellido = apellido;
     this.edad = edad;
     this.dni = dni;
     this.especialidad = especialidad;
-    this.mail = mail;
+    this.email = email;
     this.password = password;
-    this.imagenUno = imagenUno;
+    this.imagen = imagen;
   }
 
   ngOnInit(): void {

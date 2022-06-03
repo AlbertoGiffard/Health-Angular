@@ -11,11 +11,13 @@ import { FirebaseError } from 'firebase/app';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  enfocado: string;
   created: boolean;
   errorMessage: string;
   loginForm: FormGroup;
   
   constructor(private authService: LoginService, private router: Router, private auth: Auth) { 
+    this.enfocado = '';
     this.loginForm = new FormGroup({
       email: new FormControl(''),
       password: new FormControl('')
@@ -47,9 +49,44 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  usuarioPreCargado(){
+  administrador(){
     this.loginForm.setValue({
-      email: 'batman@gmail.com',
+      email: 'vision@gmail.com',
+      password: '123456'
+    }) 
+  }
+
+  especialistaUno(){
+    this.loginForm.setValue({
+      email: 'especialistauno@gmail.com',
+      password: '123456'
+    }) 
+  }
+
+  especialistaDos(){
+    this.loginForm.setValue({
+      email: 'especialistados@gmail.com',
+      password: '123456'
+    }) 
+  }
+
+  pacienteUno(){
+    this.loginForm.setValue({
+      email: 'pacienteuno@gmail.com',
+      password: '123456'
+    }) 
+  }
+
+  pacienteDos(){
+    this.loginForm.setValue({
+      email: 'pacientedos@gmail.com',
+      password: '123456'
+    }) 
+  }
+
+  pacienteTres(){
+    this.loginForm.setValue({
+      email: 'pacientetres@gmail.com',
       password: '123456'
     }) 
   }

@@ -7,6 +7,7 @@ import { FirebaseError } from 'firebase/app';
 import { PacienteComponent } from 'src/app/clases/paciente/paciente.component';
 import { FirebaseStorageService } from 'src/app/servicios/firebase-storage.service';
 import { LoginService } from 'src/app/servicios/login.service';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -30,8 +31,14 @@ export class FormPacienteComponent implements OnInit {
   form: FormGroup;
   fb: FormBuilder;
   userExist: any;
+  token: string|undefined;
+  siteKey: string;
+  validadoCaptcha:boolean;
 
   constructor(private servicio: LoginService, private auth: Auth, private firebaseStorage: FirebaseStorageService, public router: Router) {
+    this.token = undefined;
+    this.validadoCaptcha = false;
+    this.siteKey = environment.recaptcha.siteKey;
     this.mensajeError = "No se pudo crear el paciente de forma correcta verifique los datos.";
     this.nombreArchivoUno = '';
     this.nombreArchivoDos = '';
@@ -162,7 +169,7 @@ export class FormPacienteComponent implements OnInit {
     //console.log(answers);
 
 
-    if (answers.nombre != '' && answers.apellido != '' && answers.edad != '' && answers.dni != '' && answers.obraSocial != '' && answers.email != '' && answers.password != '' && answers.imagenUno != '' && answers.imagenDos != '') {
+    if (answers.nombre != '' && answers.apellido != '' && answers.edad != '' && answers.dni != '' && answers.obraSocial != '' && answers.email != '' && answers.password != '' && answers.imagenUno != '' && answers.imagenDos != '' && this.validadoCaptcha) {
       result = true;
     }
 
@@ -195,6 +202,10 @@ export class FormPacienteComponent implements OnInit {
     }
   }
 
+  captcha($event:any){
+    this.validadoCaptcha = true;
+  }
+
   async subirPaciente() {    
     if (this.chequearForm()) {
       
@@ -214,7 +225,7 @@ export class FormPacienteComponent implements OnInit {
     } else {
       Swal.fire({
         icon: 'error',
-        title: 'Falta completar campos',
+        title: 'Falta completar campos y/o completar el captcha',
       })
     }
 
