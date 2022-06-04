@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
+  usuarioActual:any;
 
-  constructor(public afAuth: AngularFireAuth, private firestore: AngularFirestore) {
-
-  }
+  constructor(public afAuth: AngularFireAuth, private firestore: AngularFirestore) {}
 
   async login(email: string, password: string) {
     const result = await this.afAuth.signInWithEmailAndPassword(email, password);
@@ -34,7 +34,8 @@ export class LoginService {
 
   async verificarMail(email:string) {
     const verificationSettings = {
-      url: 'http://localhost:4200/bienvenida',
+      //url: 'http://localhost:4200/bienvenida', //test
+      url: 'https://clinica-giffard.web.app/bienvenida', //Url real
       handleCodeInApp: true
     };
 
@@ -69,5 +70,13 @@ export class LoginService {
 
   getCurrentUser() {
     return this.afAuth.authState;
+  }
+
+  guardarUsuarioActual(usuario:any) {
+    this.usuarioActual = usuario;
+  }
+
+  traerUsuarioActual():any{
+    return this.usuarioActual;
   }
 }

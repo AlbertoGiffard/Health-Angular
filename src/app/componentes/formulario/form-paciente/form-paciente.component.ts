@@ -139,7 +139,9 @@ export class FormPacienteComponent implements OnInit {
             title: 'Se guardo el paciente de forma correcta, te llegara un email para verificar el usuario creado.',
           }
           ).then(() => {
-            this.router.navigate(['/']);
+            this.router.navigate(['/']).then(() => {
+              window.location.reload();
+            });
           })
         });
 

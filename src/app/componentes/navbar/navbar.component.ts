@@ -40,42 +40,40 @@ export class NavbarComponent implements OnInit {
       this.firestore.getUsuarios().subscribe(listDoc => {
         listDoc.forEach(user => {
           if (user.email == email) {
-            uid = user.id;
-            this.firestore.getUsuario(user.id).subscribe(user => {
-              const userWithId = { id: uid, ...user.data() }
-              //aca debe ir el cambio de estado y validar que tipo de usuario es
-              if (user.data().estado == 'pendiente') {
-                this.firestore.BuscarTipoUsuario(userWithId).then(() => {
-                  this.validado = true;
-                  this.usuario = userWithId;
-
-                });
-              } else {
+            //aca debe ir el cambio de estado y validar que tipo de usuario es
+            if (user.estado == 'pendiente') {
+              this.firestore.BuscarTipoUsuario(user).then(() => {
                 this.validado = true;
-                this.usuario = userWithId;
-              }
-            })
+                this.usuario = user;
+
+              });
+            } else {
+              this.validado = true;
+              this.usuario = user;
+            }
           }
         });
       });
     } else {
       if (this.user$) {
         this.user$.subscribe(userAuth => {
-          this.firestore.getUsuarios().subscribe(listDoc => {
-            listDoc.forEach(user => {
-              if (user.email == userAuth.email) {
-                uid = user.id;
-                this.firestore.getUsuario(user.id).subscribe(user => {
-                  const userWithId = { id: uid, ...user.data() }
+          if (userAuth) {            
+            this.firestore.getUsuarios().subscribe(listDoc => {
+              listDoc.forEach(doc => {
+                
+                if (doc.email == userAuth.email) {
+                  uid = userAuth.uid;
+                  doc.id = userAuth.uid;
+  
                   //aca debe ir el cambio de estado y validar que tipo de usuario es
-                  if (user.data().estado != 'pendiente') {
+                  if (doc.estado != 'pendiente') {
                     this.validado = true;
-                    this.usuario = userWithId;
-                  }
-                })
-              }
+                    this.usuario = doc;
+                  }                                   
+                }
+              });
             });
-          });
+          }
         })
       }
     }
@@ -84,7 +82,9 @@ export class NavbarComponent implements OnInit {
   async onLogout() {
     try {
       await this.authService.logout();
-      this.router.navigate(['/login']);
+      this.router.navigate(['/login']).then(() => {
+        window.location.reload();
+      });
     } catch (error) {
       console.log("Hubo un error al desloguearse");
     }

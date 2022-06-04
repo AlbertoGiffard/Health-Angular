@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Auth } from '@angular/fire/auth';
 import { LoginService } from 'src/app/servicios/login.service';
 import { FirebaseError } from 'firebase/app';
+import { FirestoreService } from 'src/app/servicios/firestore.service';
+import Swal from 'sweetalert2';
+import { resolve } from 'dns';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +18,8 @@ export class LoginComponent implements OnInit {
   created: boolean;
   errorMessage: string;
   loginForm: FormGroup;
-  
-  constructor(private authService: LoginService, private router: Router, private auth: Auth) { 
+
+  constructor(private authServicio: LoginService, private router: Router, private auth: Auth, private firestore: FirestoreService) {
     this.enfocado = '';
     this.loginForm = new FormGroup({
       email: new FormControl(''),
@@ -28,70 +31,141 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
   }
 
-  async onLogin(){
-    const {email, password} = this.loginForm.value;
+  async onLogin() {
+    await this.buscarUsuario();
+  }
+
+  async buscarUsuario() {
+    const { email, password } = this.loginForm.value;
+    var encontrado: number = -1;
+    var mensajeEncontrado: string = '';
+    var usuarioEncontrado: string;
+
+    const clienteSubscripcion = this.firestore.getUsuarios().subscribe(listDoc => {
+      for (let i = 0; i < listDoc.length; i++) {
+        const usuario = listDoc[i];
+
+        if (usuario.email == email) {
+          if (usuario.estado != 'pendiente') {
+            encontrado = 1;
+            usuarioEncontrado = usuario;
+            break;
+          } else {
+            encontrado = 0;
+            //mensaje
+            mensajeEncontrado = this.validarTipoUsuario(usuario.tipo);
+            break;
+          }
+        }
+      }
+
+      if (encontrado == -1) {
+        Swal.fire({
+          icon: 'error',
+          title: 'No se encontró al usuario',
+        })
+
+      } else if (encontrado == 0) {
+        Swal.fire({
+          icon: 'error',
+          title: mensajeEncontrado,
+        })
+      } else {
+        this.autenticarUsuario(usuarioEncontrado);
+      }
+      clienteSubscripcion.unsubscribe();
+    })
+
+  }
+
+  async autenticarUsuario(usuarioEncontrado: any) {
+    const { email, password } = this.loginForm.value;
+
     try {
-      const user = await this.authService.login(email, password);          
+      const user = await this.authServicio.login(email, password);
 
       if (user) {
-        //redirect to home
-        this.router.navigate(['/sala']);        
+        //redirect to home        
+        this.authServicio.guardarUsuarioActual(usuarioEncontrado);
+        console.log('welcome home');
+        this.router.navigate(['/home']);
+
       }
     } catch (error) {
       if (error instanceof FirebaseError) {
         console.log(error.code);
-        this.errorMessage = this.convertMessage(error.code);
-        this.created = true;
-      }      
+        Swal.fire({
+          icon: 'error',
+          title: this.convertidorMensaje(error.code),
+        })
+        //esto es para mostrar la pantalla en rojo
+        //this.errorMessage = this.convertidorMensaje(error.code);
+        //this.created = true;
+      }
     }
   }
 
-  administrador(){
+  validarTipoUsuario(tipoUsuario: string): string {
+    var result: string = 'Cuenta sin verificar';
+
+    switch (tipoUsuario) {
+      case 'especialista':
+        result = 'El administrador no ha validado tu cuenta';
+        break;
+
+      case 'paciente':
+        result = 'Necesitas verificar el mail para ingresar';
+        break;
+    }
+
+    return result;
+  }
+
+  administrador() {
     this.loginForm.setValue({
       email: 'vision@gmail.com',
       password: '123456'
-    }) 
+    })
   }
 
-  especialistaUno(){
+  especialistaUno() {
     this.loginForm.setValue({
       email: 'especialistauno@gmail.com',
       password: '123456'
-    }) 
+    })
   }
 
-  especialistaDos(){
+  especialistaDos() {
     this.loginForm.setValue({
       email: 'especialistados@gmail.com',
       password: '123456'
-    }) 
+    })
   }
 
-  pacienteUno(){
+  pacienteUno() {
     this.loginForm.setValue({
       email: 'pacienteuno@gmail.com',
       password: '123456'
-    }) 
+    })
   }
 
-  pacienteDos(){
+  pacienteDos() {
     this.loginForm.setValue({
       email: 'pacientedos@gmail.com',
       password: '123456'
-    }) 
+    })
   }
 
-  pacienteTres(){
+  pacienteTres() {
     this.loginForm.setValue({
       email: 'pacientetres@gmail.com',
       password: '123456'
-    }) 
+    })
   }
 
-  convertMessage(code: string): string {
+  convertidorMensaje(code: string): string {
     switch (code) {
       case 'auth/user-disabled': {
         return 'Usuario deshabilitado.';

@@ -24,9 +24,10 @@ export class FirestoreService {
       map(docs => {
         return docs.map(d => {
           const data = d.payload.doc.data() as any[];
-          const id = d.payload.doc.id;
+          const uid = d.payload.doc.id;
 
-          return { id, ...data };
+
+          return { uid, ...data };
         })
       }));
   }

@@ -1,0 +1,45 @@
+<div class="row h-100">
+    <div class="bg-primary h-100 p-2 col-md-2">
+        <div class="text-center">
+            <img src="https://cdn-icons-png.flaticon.com/512/2966/2966327.png" class="img-fluid img-logo">
+        </div>
+        <div class="container-list p-3">
+            <ul class="list-group list-group-flush">
+                <ng-container [ngSwitch]="tipoUsuario">
+                    <ng-container *ngSwitchCase="'administrador'">
+                        <li class="list-group-item" appColores="darkcyan" (click)="listarEspecialistas()">
+                            <label>
+                                &bull;Lista especialistas pendientes
+                            </label>
+                        </li>
+                        <li class="list-group-item" appColores="darkcyan" (click)="crearAdministrador()">
+                            <label>
+                                &bull;Crear Administrador
+                            </label>
+                        </li>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'especialista'"></ng-container>
+                    <ng-container *ngSwitchDefault>
+                        <li class="list-group-item" appColores="darkcyan" (click)="filtrarTurnos()">
+                            <label>
+                                &bull;Mis Turnos
+                            </label>
+                        </li>
+                    </ng-container>
+                </ng-container>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-10 h-100">
+        <div [ngSwitch]="componenteMostrar">
+            <div *ngSwitchDefault class="align-content-center text-center display-2 my-auto">Escoge alguna opción del
+                menu</div>
+            <div *ngSwitchCase="'listadoPacientes'">
+                <app-especialistas-pendientes></app-especialistas-pendientes>
+            </div>
+            <div *ngSwitchCase="'registrarAdministrador'">
+                <app-form-administrador></app-form-administrador>
+            </div>
+        </div>
+    </div>
+</div>

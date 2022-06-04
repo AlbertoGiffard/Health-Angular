@@ -4,19 +4,19 @@ import { CommonModule } from '@angular/common';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ColoresDirective } from 'src/app/directivas/colores.directive';
+import { coloresDirectiveSharedModule } from 'src/app/directivas/coloresShared.module';
 
 
 @NgModule({
   declarations: [
-    LoginComponent,
-    ColoresDirective
+    LoginComponent
   ],
   imports: [
     CommonModule,
     LoginRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    coloresDirectiveSharedModule
   ]
 })
 export class LoginModule { }

@@ -19,6 +19,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { PacienteComponent } from './clases/paciente/paciente.component';
 import { EspecialistaComponent } from './clases/especialista/especialista.component';
 import { AdministradorComponent } from './clases/administrador/administrador.component';
+import { FormAdministradorComponent } from './componentes/formulario/form-administrador/form-administrador.component';
 
 @NgModule({
   declarations: [

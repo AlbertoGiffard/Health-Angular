@@ -4,7 +4,7 @@ import { AngularFireStorageReference } from '@angular/fire/compat/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FirebaseError } from 'firebase/app';
-import { EspecialistaComponent } from 'src/app/clases/especialista/especialista.component';
+import { AdministradorComponent } from 'src/app/clases/administrador/administrador.component';
 import { FirebaseStorageService } from 'src/app/servicios/firebase-storage.service';
 import { FirestoreService } from 'src/app/servicios/firestore.service';
 import { LoginService } from 'src/app/servicios/login.service';
@@ -12,11 +12,11 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-form-especialista',
-  templateUrl: './form-especialista.component.html',
-  styleUrls: ['./form-especialista.component.scss']
+  selector: 'app-form-administrador',
+  templateUrl: './form-administrador.component.html',
+  styleUrls: ['./form-administrador.component.scss']
 })
-export class FormEspecialistaComponent implements OnInit {
+export class FormAdministradorComponent implements OnInit {
   mensajeError: string;
   especialidadEscogida: string;
   valorDropdown: string;
@@ -26,7 +26,7 @@ export class FormEspecialistaComponent implements OnInit {
   listadoEspecialidades : string[];
   urlImagen: string;
   urlListo: boolean;
-  especialista: EspecialistaComponent;
+  administrador: AdministradorComponent;
   form: FormGroup;
   fb: FormBuilder;
   userExist: any;
@@ -38,7 +38,7 @@ export class FormEspecialistaComponent implements OnInit {
     this.token = undefined;
     this.validadoCaptcha = false;
     this.siteKey = environment.recaptcha.siteKey;
-    this.mensajeError = "No se pudo crear el especialista de forma correcta verifique los datos.";
+    this.mensajeError = "No se pudo crear el administrador de forma correcta verifique los datos.";
     this.especialidadEscogida = 'Escoger especialidad';
     this.valorDropdown = '';
     this.nombreArchivo = '';
@@ -46,7 +46,7 @@ export class FormEspecialistaComponent implements OnInit {
     this.listadoEspecialidades = [];
     this.urlListo = false;
     this.userExist = this.auth.currentUser;
-    this.especialista = new EspecialistaComponent();
+    this.administrador = new AdministradorComponent();
     this.fb = new FormBuilder();
     this.form = this.fb.group(
       {
@@ -64,20 +64,8 @@ export class FormEspecialistaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.firestore.getEspecialidades().subscribe(listDoc => {
-      listDoc.forEach(data => {        
-        this.listadoEspecialidades.push(data.especialidad);
-      })
-    })
   }
 
-  getValorDropdown($event:any) {
-    console.log($event.view.getSelection().anchorNode.parentElement.innerText);
-    this.especialidadEscogida = $event.view.getSelection().anchorNode.parentElement.innerText;
-    
-  }
-
-  //son dos archivos
   imagenSelect(input: any) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
@@ -109,18 +97,19 @@ export class FormEspecialistaComponent implements OnInit {
     });
   }
 
-  async cargar(especialista: EspecialistaComponent) {
+  async cargar(administrador: AdministradorComponent) {
     if (this.urlListo) {
       try {
-        await this.servicio.registrar(especialista).then(() => {
+        await this.servicio.registrar(administrador).then(() => {
           Swal.fire({
             icon: 'success',
-            title: 'Se guardo el especialista de forma correcta, espera a que el administrador verifique tu cuenta.',
+            title: 'Se guardo el administrador de forma correcta.',
           }
           ).then(() => {
-            this.router.navigate(['/']).then(() => {
+            /* this.router.navigate(['/']).then(() => {
               window.location.reload();
-            });
+            }); */
+            window.location.reload();
           })
         });
 
@@ -149,7 +138,7 @@ export class FormEspecialistaComponent implements OnInit {
     var answers = this.form.getRawValue();
     //console.log(answers);
 
-    if (answers.nombre != '' && answers.apellido != '' && answers.edad != '' && answers.dni != '' && this.especialidadEscogida != 'Escoger especialidad' && answers.email != '' && answers.password != '' && answers.imagen != '' && this.validadoCaptcha) {
+    if (answers.nombre != '' && answers.apellido != '' && answers.edad != '' && answers.dni != '' && answers.email != '' && answers.password != '' && answers.imagen != '' && this.validadoCaptcha) {
       result = true;
     }
 
@@ -186,19 +175,18 @@ export class FormEspecialistaComponent implements OnInit {
     this.validadoCaptcha = true;
   }
 
-  async subirEspecialista() {    
+  async subirAdministrador() {    
     if (this.chequearForm()) {
       
-      this.especialista.nombre = this.form.controls['nombre'].value;
-      this.especialista.apellido = this.form.controls['apellido'].value;
-      this.especialista.edad = this.form.controls['edad'].value;
-      this.especialista.dni = this.form.controls['dni'].value;
-      this.especialista.especialidad = this.especialidadEscogida;
-      this.especialista.email = this.form.controls['email'].value;
-      this.especialista.password = this.form.controls['password'].value;
-      this.especialista.imagen = this.urlImagen;
+      this.administrador.nombre = this.form.controls['nombre'].value;
+      this.administrador.apellido = this.form.controls['apellido'].value;
+      this.administrador.edad = this.form.controls['edad'].value;
+      this.administrador.dni = this.form.controls['dni'].value;
+      this.administrador.email = this.form.controls['email'].value;
+      this.administrador.password = this.form.controls['password'].value;
+      this.administrador.imagen = this.urlImagen;
 
-      this.cargar(this.especialista);
+      this.cargar(this.administrador);
 
 
     } else {
@@ -208,24 +196,4 @@ export class FormEspecialistaComponent implements OnInit {
       })
     }
   }
-
-  async nuevaEspecialidad() {
-    const { value: text } = await Swal.fire({
-      input: 'text',
-      inputLabel: 'Nueva especialidad',
-      inputPlaceholder: 'Indica el nombre de la nueva especialidad',
-      inputAttributes: {
-        'aria-label': 'Indica el nombre de la nueva especialidad'
-      },
-      showCancelButton: true
-    })
-    
-    if (text) {
-      this.especialidadEscogida = text;
-      this.listadoEspecialidades.push(text);
-      this.firestore.guardarEspecialidad(text);
-    }
-
-  }
-
 }
