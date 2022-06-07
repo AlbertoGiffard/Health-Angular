@@ -9,13 +9,17 @@ import { FormAdministradorComponent } from '../formulario/form-administrador/for
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
+import { PerfilComponent } from '../perfil/perfil.component';
+import { SolicitarTurnoComponent } from '../turnos/solicitar-turno/solicitar-turno.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     EspecialistasPendientesComponent,
-    FormAdministradorComponent
+    FormAdministradorComponent,
+    PerfilComponent,
+    SolicitarTurnoComponent
   ],
   imports: [
     CommonModule,

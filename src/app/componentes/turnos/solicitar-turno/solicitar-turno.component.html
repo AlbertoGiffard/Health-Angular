@@ -1,0 +1,90 @@
+<div class="card p-3 mt-3">
+    <div class="title text-center">
+        <span class="display-4">
+            Nuevo Turno
+        </span>
+    </div>
+    <hr>
+    <form class="needs-validation" [formGroup]="formulario" (ngSubmit)="subirTurno()">
+        <div class="d-flex flex-row justify-content-center align-content-center align-items-center mb-3">
+            <div class="mr-3">
+                <strong>Paciente:</strong>
+            </div>
+            <div class="">
+                <button class="btn btn-info dropdown-toggle w-100" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
+                    {{especialidadEscogida}}
+                </button>
+                <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton" >
+                    <a class="dropdown-item" (click)="getValorDropdown($event)" *ngFor="let especialidad of listaEspecialidades">{{especialidad}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="col-md-6 text-center">
+                <div class="mr-3">
+                    <strong>Especialidad:</strong>
+                </div>
+                <div class="">
+                    <button class="btn btn-info dropdown-toggle w-100" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
+                        {{especialidadEscogida}}
+                    </button>
+                    <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton" >
+                        <a class="dropdown-item" (click)="getValorDropdown($event)" *ngFor="let especialidad of listaEspecialidades">{{especialidad}}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 text-center">
+                <div class="mr-3">
+                    <strong>Doctor/a:</strong>
+                </div>
+                <div class="">
+                    <button class="btn btn-info dropdown-toggle w-100" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
+                        {{especialidadEscogida}}
+                    </button>
+                    <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton" >
+                        <a class="dropdown-item" (click)="getValorDropdown($event)" *ngFor="let especialidad of listaEspecialidades">{{especialidad}}</a>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <div class="mr-3">
+                    <strong>Día:</strong>
+                </div>
+                <div class="">
+                    <button class="btn btn-info dropdown-toggle w-100" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
+                        {{especialidadEscogida}}
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-6 text-center">
+                <div class="mr-3">
+                    <strong>Hora:</strong>
+                </div>
+                <div class="">
+                    <button class="btn btn-info dropdown-toggle w-100" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
+                        {{especialidadEscogida}}
+                    </button>
+                </div>
+            </div>
+        </div> 
+        <hr class="mb-4">
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <button class="btn btn-outline-warning btn-lg btn-block" type="submit">Limpiar</button>
+            </div>
+
+            <div class="col-md-6 text-center">
+                <button class="btn btn-outline-primary btn-lg btn-block" type="submit">Confirmar</button>
+            </div>
+        </div>        
+    </form>
+</div>

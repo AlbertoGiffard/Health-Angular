@@ -17,12 +17,33 @@
                                 &bull;Crear Administrador
                             </label>
                         </li>
+                        <li class="list-group-item" appColores="darkcyan" (click)="irSolicitarTurno()">
+                            <label>
+                                &bull;Solicitar Turno
+                            </label>
+                        </li>
                     </ng-container>
-                    <ng-container *ngSwitchCase="'especialista'"></ng-container>
+                    <ng-container *ngSwitchCase="'especialista'">
+                        <li class="list-group-item" appColores="darkcyan" (click)="irPerfil()">
+                            <label>
+                                &bull;Mi Perfil
+                            </label>
+                        </li>
+                    </ng-container>
                     <ng-container *ngSwitchDefault>
-                        <li class="list-group-item" appColores="darkcyan" (click)="filtrarTurnos()">
+                        <li class="list-group-item" appColores="darkcyan" >
                             <label>
                                 &bull;Mis Turnos
+                            </label>
+                        </li>
+                        <li class="list-group-item" appColores="darkcyan" (click)="irSolicitarTurno()">
+                            <label>
+                                &bull;Solicitar Turno
+                            </label>
+                        </li>
+                        <li class="list-group-item" appColores="darkcyan" (click)="irPerfil()">
+                            <label>
+                                &bull;Mi Perfil
                             </label>
                         </li>
                     </ng-container>
@@ -39,6 +60,12 @@
             </div>
             <div *ngSwitchCase="'registrarAdministrador'">
                 <app-form-administrador></app-form-administrador>
+            </div>
+            <div *ngSwitchCase="'perfil'">
+                <app-perfil [usuario]="usuario"></app-perfil>
+            </div>
+            <div *ngSwitchCase="'solicitarTurno'">
+                <app-solicitar-turno></app-solicitar-turno>
             </div>
         </div>
     </div>

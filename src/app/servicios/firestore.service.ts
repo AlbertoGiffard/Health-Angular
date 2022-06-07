@@ -13,6 +13,10 @@ export class FirestoreService {
     return this.firestore.collection('usuarios').doc(uid).get();
   }
 
+  getEspecialistas = (): Observable<any> => {
+    return this.firestore.collection('usuarios', ref => ref.where('tipo', '==', 'especialista')).valueChanges();
+  }
+
   //Actualiza un usuario
   actualizarUsuario(user: any) {
     return this.firestore.collection('usuarios').doc(user.id).update(user);
@@ -84,7 +88,7 @@ export class FirestoreService {
   } */
 
   async guardarEspecialidad(especialidad: string) {
-    return this.firestore.collection('especialidades').add({especialidad: especialidad});
+    return this.firestore.collection('especialidades').add({ especialidad: especialidad });
   }
 
 

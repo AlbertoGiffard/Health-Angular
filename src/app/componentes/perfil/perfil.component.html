@@ -1,0 +1,75 @@
+<div class="card mt-3 p-2">
+    <div class="img-container text-center">
+        <img src={{imagenDos}} class="img-fluid img-background" >
+        <img src={{imagenUno}} class="rounded-circle img-center img-fluid card-img-top">
+    </div>
+    <div class="card-body">
+        <div class="justify-content-center text-center mb-3">
+            <span class="display-4">
+                {{usuario.nombre}} {{usuario.apellido}}
+            </span>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-6 mb-3">
+                <label>
+                    DNI:
+                </label>
+                <strong>
+                    {{usuario.dni}}
+                </strong>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>
+                    Edad:
+                </label>
+                <strong>
+                    {{usuario.edad}}
+                </strong>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-6 mb-3">
+                <label>
+                    Email:
+                </label>
+                <strong>
+                    {{usuario.email}}
+                </strong>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>
+                    Tipo:
+                </label>
+                <strong>
+                    {{usuario.tipo}}
+                </strong>
+            </div>
+        </div>
+        <hr>
+        <div class="row text-center mt-3" *ngIf="usuario.tipo == 'especialista'">
+            <div class="title">
+                <h4>
+                    Definir rango horario de disponibilidad
+                </h4>
+            </div>
+            <div class="col-md-6 mb-3">
+                <strong class="ml-3">
+                    Desde:  
+                </strong>
+                <input type="time" step="3600" [(ngModel)]="desde">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <strong>
+                    Hasta:
+                </strong>
+                <input type="time" step="3600" [(ngModel)]="hasta">
+            </div>
+            <div class="submit-container">
+                <input type="submit" value="Confirmar" class="btn btn-block btn-outline-primary btn-lg" (click)="guardarHorario()">
+            </div>
+        </div>
+    </div>
+</div>

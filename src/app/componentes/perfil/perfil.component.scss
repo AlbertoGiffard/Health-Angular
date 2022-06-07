@@ -1,0 +1,25 @@
+.img-fluid{
+    width: 80px;
+    height: 80px;
+}
+
+.img-background{
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    width: 30vh;
+    height: 200px;
+}
+
+.img-center{
+    position: absolute;
+    left: 46%;
+    top: 78%;
+}
+
+.img-container{
+    position: relative;
+}
+
+.card-body {
+    margin-top: 35px;
+}
