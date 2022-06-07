@@ -16,8 +16,6 @@ export class PerfilComponent implements OnInit {
   desde: string;
   hasta: string;
 
-  /* const moment = extendMoment(moment); */
-
   constructor(private firestore: FirestoreService) {
     this.imagenUno = '';
     this.imagenDos = '../../../assets/perfil/bg-perfil.jpg';

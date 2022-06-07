@@ -15,8 +15,9 @@
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
                     {{especialidadEscogida}}
                 </button>
-                <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton" >
-                    <a class="dropdown-item" (click)="getValorDropdown($event)" *ngFor="let especialidad of listaEspecialidades">{{especialidad}}</a>
+                <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" (click)="getValorDropdown($event)"
+                        *ngFor="let especialidad of listaEspecialidades">{{especialidad}}</a>
                 </div>
             </div>
         </div>
@@ -30,8 +31,9 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
                         {{especialidadEscogida}}
                     </button>
-                    <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton" >
-                        <a class="dropdown-item" (click)="getValorDropdown($event)" *ngFor="let especialidad of listaEspecialidades">{{especialidad}}</a>
+                    <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" (click)="getValorDropdown($event)"
+                            *ngFor="let especialidad of listaEspecialidades">{{especialidad}}</a>
                     </div>
                 </div>
             </div>
@@ -45,22 +47,22 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
                         {{especialidadEscogida}}
                     </button>
-                    <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton" >
-                        <a class="dropdown-item" (click)="getValorDropdown($event)" *ngFor="let especialidad of listaEspecialidades">{{especialidad}}</a>
+                    <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" (click)="getValorDropdown($event)"
+                            *ngFor="let especialidad of listaEspecialidades">{{especialidad}}</a>
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
         <div class="row">
             <div class="col-md-6 text-center">
                 <div class="mr-3">
                     <strong>Día:</strong>
                 </div>
                 <div class="">
-                    <button class="btn btn-info dropdown-toggle w-100" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
-                        {{especialidadEscogida}}
-                    </button>
+                    <input matInput [matDatepicker]="picker" (dateInput)="addEvent('input', $event)" [min]="fechaMinima" [max]="fechaMaxima">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
                 </div>
             </div>
 
@@ -69,13 +71,10 @@
                     <strong>Hora:</strong>
                 </div>
                 <div class="">
-                    <button class="btn btn-info dropdown-toggle w-100" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
-                        {{especialidadEscogida}}
-                    </button>
+                    <input type="time" step="3600" name="hora" formControlName="hora">
                 </div>
             </div>
-        </div> 
+        </div>
         <hr class="mb-4">
         <div class="row">
             <div class="col-md-6 text-center">
@@ -85,6 +84,6 @@
             <div class="col-md-6 text-center">
                 <button class="btn btn-outline-primary btn-lg btn-block" type="submit">Confirmar</button>
             </div>
-        </div>        
+        </div>
     </form>
 </div>

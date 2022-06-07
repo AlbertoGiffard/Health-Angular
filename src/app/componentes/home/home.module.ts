@@ -11,6 +11,11 @@ import { RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RECAPTCHA_SET
 import { environment } from 'src/environments/environment';
 import { PerfilComponent } from '../perfil/perfil.component';
 import { SolicitarTurnoComponent } from '../turnos/solicitar-turno/solicitar-turno.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatNativeDateModule} from '@angular/material/core';
+
+
 
 
 @NgModule({
@@ -28,7 +33,10 @@ import { SolicitarTurnoComponent } from '../turnos/solicitar-turno/solicitar-tur
     FormsModule,
     ReactiveFormsModule,
     RecaptchaModule,
-    RecaptchaFormsModule
+    RecaptchaFormsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule
   ],
   providers: [
     {
@@ -36,7 +44,7 @@ import { SolicitarTurnoComponent } from '../turnos/solicitar-turno/solicitar-tur
       useValue: {
         siteKey: environment.recaptcha.siteKey,
       } as RecaptchaSettings,
-    },
+    }
   ]
 })
 export class HomeModule { }
