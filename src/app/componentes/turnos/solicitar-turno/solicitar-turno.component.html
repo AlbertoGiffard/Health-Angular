@@ -5,19 +5,20 @@
         </span>
     </div>
     <hr>
-    <form class="needs-validation" [formGroup]="formulario" (ngSubmit)="subirTurno()">
-        <div class="d-flex flex-row justify-content-center align-content-center align-items-center mb-3">
+    <form class="needs-validation" [formGroup]="formulario">
+        <div class="d-flex flex-row justify-content-center align-content-center align-items-center mb-3"
+            *ngIf="usuario.tipo == 'administrador'">
             <div class="mr-3">
                 <strong>Paciente:</strong>
             </div>
             <div class="">
                 <button class="btn btn-info dropdown-toggle w-100" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
-                    {{especialidadEscogida}}
+                    {{pacienteEscogido}}
                 </button>
                 <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" (click)="getValorDropdown($event)"
-                        *ngFor="let especialidad of listaEspecialidades">{{especialidad}}</a>
+                    <a class="dropdown-item" (click)="getValorDropdown($event, 'paciente')" (click)="getPaciente(paciente)"
+                        *ngFor="let paciente of listaPacientes">{{paciente.nombre}} {{paciente.apellido}}</a>
                 </div>
             </div>
         </div>
@@ -32,7 +33,7 @@
                         {{especialidadEscogida}}
                     </button>
                     <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" (click)="getValorDropdown($event)"
+                        <a class="dropdown-item" (click)="getValorDropdown($event, 'especialidad')"
                             *ngFor="let especialidad of listaEspecialidades">{{especialidad}}</a>
                     </div>
                 </div>
@@ -45,11 +46,12 @@
                 <div class="">
                     <button class="btn btn-info dropdown-toggle w-100" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
-                        {{especialidadEscogida}}
+                        {{doctorEscogido}}
                     </button>
                     <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" (click)="getValorDropdown($event)"
-                            *ngFor="let especialidad of listaEspecialidades">{{especialidad}}</a>
+                        <a class="dropdown-item" (click)="getValorDropdown($event, 'doctor')"
+                            (click)="getDoctor({doctor})"
+                            *ngFor="let doctor of listaEspecialistasMostrar">{{doctor.nombre}} {{doctor.apellido}}</a>
                     </div>
                 </div>
             </div>
@@ -60,9 +62,10 @@
                     <strong>Día:</strong>
                 </div>
                 <div class="">
-                    <input matInput [matDatepicker]="picker" (dateInput)="addEvent('input', $event)" [min]="fechaMinima" [max]="fechaMaxima">
+                    <input  class="btn btn-info dropdown-toggle w-100" matInput [matDatepicker]="picker" (dateInput)="addEvent('input', $event)" [min]="fechaMinima"
+                        [max]="fechaMaxima">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-datepicker #picker class="dropdown-menu w-75"></mat-datepicker>
                 </div>
             </div>
 
@@ -71,18 +74,25 @@
                     <strong>Hora:</strong>
                 </div>
                 <div class="">
-                    <input type="time" step="3600" name="hora" formControlName="hora">
+                    <button class="btn btn-info dropdown-toggle w-100" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
+                        {{horaEscogida}}
+                    </button>
+                    <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" (click)="getValorDropdown($event, 'hora')"
+                            *ngFor="let hora of listaHorasDisponibles">{{hora}}</a>
+                    </div>
                 </div>
             </div>
         </div>
         <hr class="mb-4">
         <div class="row">
             <div class="col-md-6 text-center">
-                <button class="btn btn-outline-warning btn-lg btn-block" type="submit">Limpiar</button>
+                <button class="btn btn-outline-warning btn-lg btn-block" type="submit" (click)="limpiarCampos()">Limpiar</button>
             </div>
 
             <div class="col-md-6 text-center">
-                <button class="btn btn-outline-primary btn-lg btn-block" type="submit">Confirmar</button>
+                <button class="btn btn-outline-primary btn-lg btn-block" type="submit" (click)="subirTurno()">Confirmar</button>
             </div>
         </div>
     </form>

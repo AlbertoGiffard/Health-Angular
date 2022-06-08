@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getAuth, isSignInWithEmailLink } from 'firebase/auth';
 import { map, Observable } from 'rxjs';
+import { TurnoComponent } from '../clases/turno/turno.component';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class FirestoreService {
     return this.firestore.collection('usuarios').doc(uid).get();
   }
 
-  getEspecialistas = (): Observable<any> => {
-    return this.firestore.collection('usuarios', ref => ref.where('tipo', '==', 'especialista')).valueChanges();
+  getTipoUsuarios = (tipo: string): Observable<any> => {
+    return this.firestore.collection('usuarios', ref => ref.where('tipo', '==', tipo)).valueChanges();
   }
 
   //Actualiza un usuario
@@ -89,6 +90,24 @@ export class FirestoreService {
 
   async guardarEspecialidad(especialidad: string) {
     return this.firestore.collection('especialidades').add({ especialidad: especialidad });
+  }
+
+  /* TURNOS */
+
+  async guardarTurno(turno: TurnoComponent) {
+    return this.firestore.collection('turnos').add({ ...turno });
+  }
+
+  getTurnos = (): Observable<any[]> => {
+    return this.firestore.collection('turnos').snapshotChanges().pipe(
+      map(docs => {
+        return docs.map(d => {
+          const data = d.payload.doc.data() as any[];
+          const id = d.payload.doc.id;
+
+          return { id, ...data };
+        })
+      }));
   }
 
 

@@ -14,6 +14,7 @@ import { SolicitarTurnoComponent } from '../turnos/solicitar-turno/solicitar-tur
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material/core';
+import { AdministradorTurnoComponent } from '../listados/administrador-turno/administrador-turno.component';
 
 
 
@@ -24,7 +25,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     EspecialistasPendientesComponent,
     FormAdministradorComponent,
     PerfilComponent,
-    SolicitarTurnoComponent
+    SolicitarTurnoComponent,
+    AdministradorTurnoComponent
   ],
   imports: [
     CommonModule,

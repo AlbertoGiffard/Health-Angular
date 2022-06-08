@@ -21,20 +21,19 @@ export class HomeComponent implements OnInit {
     //esto es lo que realmente va
     //this.usuario = this.loginServicio.traerUsuarioActual();
 
+
     this.usuario = {
-      ImagenDos: "https://firebasestorage.googleapis.com/v0/b/clinica-giffard.appspot.com/o/4.jpg?alt=media&token=f4c141a3-b896-4e31-8de0-b84ec8f88b3c",
-      apellido: "Gordon",
-      dni: 45852147,
-      edad: 26,
-      email: "pacientedos@gmail.com",
+      apellido: "Rik",
+      dni: 96458741,
+      edad: 51,
+      email: "vision@gmail.com",
       estado: "validado",
       id: "",
-      imagenUno: "https://firebasestorage.googleapis.com/v0/b/clinica-giffard.appspot.com/o/pacientedos.jpg?alt=media&token=f5c317da-688c-468f-a4da-b912b1061290",
-      nombre: "Barbara",
-      obraSocial: "osecac",
+      imagen: "https://firebasestorage.googleapis.com/v0/b/clinica-giffard.appspot.com/o/administrador.jpg?alt=media&token=46a106b0-3161-4235-b7d1-b9d200cc7524",
+      nombre: "Dr. Vision",
       password: "123456",
-      tipo: "paciente",
-      uid: "RbtMAwB6EcSMfVokphBy"
+      tipo: "administrador",
+      uid: "HYp7g56XcossWQBH3zd7"
     }
 
     //esto si va
@@ -57,5 +56,9 @@ export class HomeComponent implements OnInit {
 
   irSolicitarTurno() {
     this.componenteMostrar = 'solicitarTurno';
+  }
+
+  turnosAdministrador() {
+    this.componenteMostrar = 'turnosAdministrador';
   }
 }

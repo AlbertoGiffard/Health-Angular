@@ -17,7 +17,7 @@ export class CargandoComponent implements OnInit {
     setTimeout(() => {
       this.show = false;
       this.cargado.emit(this.show);
-    }, 300);
+    }, 500);
   }
 
 }
