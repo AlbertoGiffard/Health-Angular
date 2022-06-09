@@ -8,8 +8,9 @@
  * Gestionar los distintos turnos que puedas llegar a tener
 
  Y lo mejor de todo, completamente gratis!
+ Visítanos, <https://clinica-giffard.web.app/bienvenida>
  <hr/>
  A medida que siga avanzando el desarrollo del mismo, vas a poder interactuar con muchas más funcionalidades
- como gestión de turnos, aceptar solicitudes nuevas de registros, descarga de información, etc. 
+ como gestión de turnos, aceptar solicitudes nuevas de registros, descarga de información, etc.
 
  Powered by Alberto Giffard
