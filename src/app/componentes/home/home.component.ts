@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     //esto es lo que realmente va
-    //this.usuario = this.loginServicio.traerUsuarioActual();
+    this.usuario = this.loginServicio.traerUsuarioActual();
 
-    this.usuario = {
+    /* this.usuario = {
       apellido: "Falcon",
       desde: "09:00",
       dni: 54896547,
@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
       password: "123456",
       tipo: "especialista",
       uid: "1JzmWpQ0UaAo37PAAGi0"
-    };
+    }; */
 
     //esto si va
 
