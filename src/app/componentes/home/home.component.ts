@@ -21,20 +21,22 @@ export class HomeComponent implements OnInit {
     //esto es lo que realmente va
     //this.usuario = this.loginServicio.traerUsuarioActual();
 
-
     this.usuario = {
-      apellido: "Rik",
-      dni: 96458741,
-      edad: 51,
-      email: "vision@gmail.com",
+      apellido: "Falcon",
+      desde: "09:00",
+      dni: 54896547,
+      edad: 37,
+      email: "especialistauno@gmail.com",
+      especialidad: "oftalmologia",
       estado: "validado",
-      id: "",
-      imagen: "https://firebasestorage.googleapis.com/v0/b/clinica-giffard.appspot.com/o/administrador.jpg?alt=media&token=46a106b0-3161-4235-b7d1-b9d200cc7524",
-      nombre: "Dr. Vision",
+      hasta: "18:00",
+      id: "1JzmWpQ0UaAo37PAAGi0",
+      imagen: "https://firebasestorage.googleapis.com/v0/b/clinica-giffard.appspot.com/o/especialistauno.jpg?alt=media&token=b46cb1bf-f2d3-44fa-a1e5-8c87d9261b32",
+      nombre: "Dr.",
       password: "123456",
-      tipo: "administrador",
-      uid: "HYp7g56XcossWQBH3zd7"
-    }
+      tipo: "especialista",
+      uid: "1JzmWpQ0UaAo37PAAGi0"
+    };
 
     //esto si va
 
@@ -60,5 +62,9 @@ export class HomeComponent implements OnInit {
 
   turnosAdministrador() {
     this.componenteMostrar = 'turnosAdministrador';
+  }
+
+  irMisturnos() {
+    this.componenteMostrar = 'misTurnos';
   }
 }

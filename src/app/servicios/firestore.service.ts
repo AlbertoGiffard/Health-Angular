@@ -110,5 +110,9 @@ export class FirestoreService {
       }));
   }
 
+  actualizarTurno(turno: any) {
+    return this.firestore.collection('turnos').doc(turno.id).update(turno);
+  }
+
 
 }

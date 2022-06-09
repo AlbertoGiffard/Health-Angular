@@ -29,6 +29,11 @@
                         </li>
                     </ng-container>
                     <ng-container *ngSwitchCase="'especialista'">
+                        <li class="list-group-item" appColores="darkcyan" (click)="irMisturnos()">
+                            <label>
+                                &bull;Mis Turnos
+                            </label>
+                        </li>
                         <li class="list-group-item" appColores="darkcyan" (click)="irPerfil()">
                             <label>
                                 &bull;Mi Perfil
@@ -36,7 +41,7 @@
                         </li>
                     </ng-container>
                     <ng-container *ngSwitchDefault>
-                        <li class="list-group-item" appColores="darkcyan" >
+                        <li class="list-group-item" appColores="darkcyan" (click)="irMisturnos()">
                             <label>
                                 &bull;Mis Turnos
                             </label>
@@ -74,6 +79,9 @@
             </div>
             <div *ngSwitchCase="'turnosAdministrador'">
                 <app-administrador-turno></app-administrador-turno>
+            </div>
+            <div *ngSwitchCase="'misTurnos'">
+                <app-mis-turnos [especialista]="usuario"></app-mis-turnos>
             </div>
         </div>
     </div>

@@ -13,16 +13,22 @@ export class AdministradorTurnoComponent implements OnInit {
   listadoTurnos: TurnoComponent[];
   listadoEspecialistas: EspecialistaComponent[];
   listadoEspecialidades: string[];
+  listadoParaMostrar: TurnoComponent[];
+  palabraBusqueda: string;
 
   constructor(private firestore: FirestoreService) {
+    this.palabraBusqueda = '';
     this.listadoTurnos = [];
     this.listadoEspecialistas = [];
     this.listadoEspecialidades = [];
+    this.listadoParaMostrar = [];
    }
 
   ngOnInit(): void {
     const turnosSub = this.firestore.getTurnos().subscribe(listDoc => {
       this.listadoTurnos = listDoc;
+      this.listadoParaMostrar = this.listadoTurnos;
+      
 
       listDoc.forEach((turno:TurnoComponent) => {        
         if (this.listadoEspecialistas.indexOf(turno.especialista) == -1) this.listadoEspecialistas.push(turno.especialista);
@@ -31,11 +37,22 @@ export class AdministradorTurnoComponent implements OnInit {
     });
   }
 
-  cancelarTurno(turno:TurnoComponent){
-    this.dejarComentario();
+  buscarPalabra() {
+    if (this.palabraBusqueda == '') {
+      this.listadoParaMostrar = this.listadoTurnos;
+    } else {
+      const palabra = this.palabraBusqueda.toLowerCase();
+
+      this.listadoParaMostrar = this.listadoParaMostrar.filter((element, i, array) => {
+        let arrayElementEspecialidad = element.especialidad.toLowerCase();
+        let arrayElementEspecialistaNombre = element.especialista.nombre.toLowerCase();
+        let arrayElementEspecialistaApellido = element.especialista.apellido.toLowerCase();
+        return arrayElementEspecialidad.includes(palabra) || arrayElementEspecialistaNombre.includes(palabra) || arrayElementEspecialistaApellido.includes(palabra);
+      })
+    }
   }
 
-  async dejarComentario() {
+  async cancelarTurno(turno:TurnoComponent){
     const { value: text } = await Swal.fire({
       input: 'text',
       inputLabel: 'Rechazar turno',
@@ -47,10 +64,16 @@ export class AdministradorTurnoComponent implements OnInit {
     })
     
     if (text) {
-      console.log(text);
+      turno.comentario = text;
+      turno.estado = 'rechazado';
       
+      this.firestore.actualizarTurno(turno);
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Debe indicar un comentario para poder cancelarlo.',
+      });
     }
-
   }
 
 }

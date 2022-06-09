@@ -1,10 +1,10 @@
 <div class="mt-4 mb-4">
     <form class="form-inline my-2 my-lg-0 row">
         <div class="col-md-8">
-            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" [(ngModel)]="palabraBusqueda" [ngModelOptions]="{standalone: true}">
         </div>
-        <div class="col-md-4">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+        <div class="col-md-2">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="buscarPalabra()">Buscar</button>
         </div>
     </form>
 </div>
@@ -21,18 +21,18 @@
         </tr>
     </thead>
     <tbody class="align-middle">
-        <tr *ngFor="let turno of listadoTurnos">
+        <tr *ngFor="let turno of listadoParaMostrar">
             <td>{{turno.paciente.nombre}} {{turno.paciente.apellido}}</td>
             <td>{{turno.especialista.nombre}} {{turno.especialista.apellido}}</td>
             <td>{{turno.especialidad}}</td>
             <td>{{turno.dia}}</td>
             <td>{{turno.hora}}:00hs.</td>
-            <td>{{turno.estado}}</td>
+            <td>{{turno.estado | uppercase}}</td>
             <td *ngIf="turno.estado == 'pendiente';else sinAccion">
                 <button class="btn btn-danger btn-lg" (click)="cancelarTurno(turno)">Cancelar</button>
             </td>
             <ng-template #sinAccion>
-                <td>
+                <td class="text-muted">
                     Sin acción
                 </td>
             </ng-template>

@@ -10,7 +10,16 @@
  Y lo mejor de todo, completamente gratis!
  Visítanos, <https://clinica-giffard.web.app/bienvenida>
  <hr/>
- A medida que siga avanzando el desarrollo del mismo, vas a poder interactuar con muchas más funcionalidades
- como gestión de turnos, aceptar solicitudes nuevas de registros, descarga de información, etc.
+ ## Recorrido por la página web
+ * Inicio: Encontraras nuestra página de bienvenida que será la siguiente.
+ <img src="./src/assets/readme/home.png" width="100">
+ * Registro: En esta sección podras registrarte tanto como paciente como especialista.
+ <img src="./src/assets/readme/registro.png" width="100">
+ * Login: Cuando ya te hayas registrado y te hayan validado, ya sea como paciente (con verificación de email) 
+ o como especialista (validado por el administrador), podras ingresar tu usuario para entrar al sistema.
+ <img src="./src/assets/readme/login.png" width="100">
+ * Menu: Finalmente tendras acceso a tu menu donde dependiendo de tu tipo de usuario tendrás múltiples opciones en el sidebar.
+ <img src="./src/assets/readme/menu.png" width="100">
+ 
 
  Powered by Alberto Giffard
