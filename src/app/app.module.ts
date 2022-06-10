@@ -20,6 +20,7 @@ import { PacienteComponent } from './clases/paciente/paciente.component';
 import { EspecialistaComponent } from './clases/especialista/especialista.component';
 import { AdministradorComponent } from './clases/administrador/administrador.component';
 import { TurnoComponent } from './clases/turno/turno.component';
+import { FormHistoriaClinicaComponent } from './componentes/formulario/form-historia-clinica/form-historia-clinica.component';
 
 @NgModule({
   declarations: [

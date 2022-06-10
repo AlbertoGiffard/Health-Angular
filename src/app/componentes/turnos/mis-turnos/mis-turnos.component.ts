@@ -11,13 +11,17 @@ import Swal from 'sweetalert2';
 })
 export class MisTurnosComponent implements OnInit {
   @Input() especialista: any;
+  turno: TurnoComponent;
   botonTurno: string;
   accion: string;
   listadoTurnos: TurnoComponent[];
   listadoParaMostrar: TurnoComponent[];
   palabraBusqueda: string;
+  formHistoria: boolean;
 
   constructor(private firestore: FirestoreService) {
+    this.turno = new TurnoComponent();
+    this.formHistoria = false;
     this.botonTurno = '';
     this.accion = '';
     this.palabraBusqueda = '';
@@ -55,27 +59,14 @@ export class MisTurnosComponent implements OnInit {
   }
 
   async siguienteEstado(turno: TurnoComponent) {
-    var mensaje: string = 'El turno fue aceptado satisfactoriamente.';
-
     if (turno.estado == 'pendiente') {
       turno.estado = 'aceptado';
 
-      this.firestore.actualizarTurno(turno);
+      //aun no actualizamos con Firebase
+      //this.firestore.actualizarTurno(turno);
     } else {
-      if (await this.completarResenia(turno)) {
-        turno.estado = 'finalizado';
-        this.firestore.actualizarTurno(turno).then(() => {
-          Swal.fire({
-            icon: 'success',
-            title: 'El turno fue finalizado satisfactoriamente.',
-          });
-        });
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Debe dejar un comentario.',
-        });
-      }
+      this.turno = turno;
+      this.formHistoria = true;
     }
   }
 
@@ -108,10 +99,19 @@ export class MisTurnosComponent implements OnInit {
   //reseña: es el feedback del especialista
 
   verResenia(turno: TurnoComponent) {
-    var mensaje: string = 'Aqui no hay nada... habla con el desarrollador para ver que ocurrió';
+    var mensaje: string = 'Aqui no hay nada... comunicate con soporte para ver que ocurrió';
 
     if (turno.resenia != '') {
       mensaje = turno.resenia;
+    }
+    Swal.fire(mensaje);
+  }
+
+  verComentario(turno: TurnoComponent) {
+    var mensaje: string = 'Aqui no hay nada... comunicate con soporte para ver que ocurrió';
+
+    if (turno.comentario != '') {
+      mensaje = turno.comentario;
     }
     Swal.fire(mensaje);
   }
@@ -130,20 +130,26 @@ export class MisTurnosComponent implements OnInit {
     if (text) {
       turno.resenia = text;
       turno.estado = 'rechazado';
-      console.log(turno);
-
-
-      /* this.firestore.actualizarTurno(turno).then(() => {
+      this.firestore.actualizarTurno(turno).then(() => {
+        console.log(turno);
         Swal.fire({
           icon: 'success',
-          title: 'Turno rechazado correctamente.',
+          title: 'Turno cancelado satisfactoriamente.',
         });
-      }); */
+      });
     } else {
       Swal.fire({
         icon: 'error',
         title: 'Debe indicar un comentario para poder cancelarlo.',
       });
+    }
+  }
+
+  cerrarForm($event:boolean){
+    console.log($event);
+    
+    if(!$event) {
+      this.formHistoria = !this.formHistoria;
     }
   }
 

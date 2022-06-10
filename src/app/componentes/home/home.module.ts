@@ -16,6 +16,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material/core';
 import { AdministradorTurnoComponent } from '../listados/administrador-turno/administrador-turno.component';
 import { MisTurnosComponent } from '../turnos/mis-turnos/mis-turnos.component';
+import { PacienteMisTurnosComponent } from '../turnos/paciente-mis-turnos/paciente-mis-turnos.component';
+import { FormHistoriaClinicaComponent } from '../formulario/form-historia-clinica/form-historia-clinica.component';
 
 
 
@@ -28,7 +30,9 @@ import { MisTurnosComponent } from '../turnos/mis-turnos/mis-turnos.component';
     PerfilComponent,
     SolicitarTurnoComponent,
     AdministradorTurnoComponent,
-    MisTurnosComponent
+    MisTurnosComponent,
+    PacienteMisTurnosComponent,
+    FormHistoriaClinicaComponent
   ],
   imports: [
     CommonModule,

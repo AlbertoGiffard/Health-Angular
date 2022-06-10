@@ -1,0 +1,17 @@
+.containerForm{
+    position: fixed;
+    width: 60%; 
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 55%;
+}
+
+.open-close-container{
+    border-radius: 25px;
+    padding: 25px;
+    border: 2px solid black;
+}
+
+.open-close-container label{
+    font-weight: 600;
+}

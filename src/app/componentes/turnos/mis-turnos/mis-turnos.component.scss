@@ -1,3 +1,15 @@
-.mr-1{
+.mr-1 {
     margin-right: 5px;
+}
+.containerRelative{
+    position: relative;
+}
+
+.formHistoria{
+    position: fixed;
+    width: 100%;
+    height: 95vh;
+    top: 50px;
+    left: 0;
+    background-color: rgba(61, 64, 64, 0.539);
 }

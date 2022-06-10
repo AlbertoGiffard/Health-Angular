@@ -21,6 +21,11 @@
         <ng-container *ngIf="user$ | async as user;else login">
           <ul class="navbar-nav mr-auto" *ngIf="validado;else login">                   
             <li class="nav-item" *ngIf = "validado">
+              <a class="nav-link" [routerLink]="['/home']">
+                Turnos
+              </a>
+            </li>                    
+            <li class="nav-item" *ngIf = "validado">
               <a class="nav-link" (click)="onLogout()">
                 Logout
               </a>

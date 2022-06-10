@@ -1,0 +1,57 @@
+<div class="mt-4 mb-4">
+    <form class="form-inline my-2 my-lg-0 row">
+        <div class="col-md-8">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" [(ngModel)]="palabraBusqueda"
+                [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="buscarPalabra()">Buscar</button>
+        </div>
+    </form>
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Especialista</th>
+            <th scope="col">Especialidad</th>
+            <th scope="col">Día</th>
+            <th scope="col">Hora</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Acción</th>
+        </tr>
+    </thead>
+    <tbody class="align-middle">
+        <tr *ngFor="let turno of listadoParaMostrar">
+            <td>{{turno.especialista.nombre}} {{turno.especialista.apellido}}</td>
+            <td>{{turno.especialidad}}</td>
+            <td>{{turno.dia}}</td>
+            <td>{{turno.hora}}:00hs.</td>
+            <td><strong>{{turno.estado | uppercase}}</strong></td>
+            <td>
+                <div [ngSwitch]="turno.estado">
+                    <div *ngSwitchDefault>
+                        <button class="btn btn-success btn-sm" (click)="guardarComentario(turno)"
+                            *ngIf="turno.comentario == '';else comentario">
+                            Dejar Comentario
+                        </button>
+                        <ng-template #comentario>
+                            <button class="btn btn-primary btn-sm" (click)="verComentario(turno)">
+                                Ver Comentario
+                            </button>
+                        </ng-template>
+                    </div>
+                    <div *ngSwitchCase="'pendiente'">
+                        <button class="btn btn-danger btn-sm" (click)="cancelarTurno(turno)">
+                            Rechazar
+                        </button>
+                    </div>
+                    <div *ngSwitchCase="'rechazado'">
+                        <button class="btn btn-primary btn-sm" (click)="verResenia(turno)">
+                            Ver Reseña
+                        </button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

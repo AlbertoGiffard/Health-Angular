@@ -1,0 +1,150 @@
+<div class="containerGeneral" *ngIf="lanzarAnimacion">
+    <div class="containerForm">
+        <div [@childAnimation]="isOpen ? 'open' : 'closed'" class="open-close-container">
+            <div class="container">
+                <div class="row justify-content-center w-100">
+                    <div class="order-md-1">
+                        <!-- <form class="needs-validation" [formGroup]="form" novalidate> -->
+                        <form class="needs-validation" [formGroup]="form" (ngSubmit)="actualizarPaciente()" novalidate>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="altura">Altura</label>
+                                    <input type="number" class="form-control" id="altura" name="altura"
+                                        formControlName="altura" placeholder="solo numeros en cm, ej: 167" required>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['altura'].errors?.['required'] && form.controls['altura'].touched">
+                                        Ingrese una altura válida.
+                                    </small>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['altura'].errors?.['min'] && form.controls['altura'].touched">No
+                                        puedes ser
+                                        menor a 100 cm.</small>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['altura'].errors?.['max'] && form.controls['altura'].touched">No
+                                        puedes ser
+                                        mayor a 300 cm.</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="peso">Peso</label>
+                                    <input type="number" class="form-control" id="peso" name="peso"
+                                        formControlName="peso" placeholder="solo numeros en kg, ej: 45" required>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['peso'].errors?.['required'] && form.controls['peso'].touched">
+                                        Ingrese un peso válido.
+                                    </small>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['peso'].errors?.['min'] && form.controls['peso'].touched">No
+                                        puedes ser
+                                        menor a 1 kg.</small>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['peso'].errors?.['max'] && form.controls['peso'].touched">No
+                                        puedes ser
+                                        mayor a 400 kg.</small>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="temperatura">Temperatura</label>
+                                    <input type="number" class="form-control" id="temperatura" name="temperatura"
+                                        formControlName="temperatura" placeholder="solo numeros en °C, ej: 38" required>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['temperatura'].errors?.['required'] && form.controls['temperatura'].touched">
+                                        Ingrese una temperatura válida.
+                                    </small>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['temperatura'].errors?.['min'] && form.controls['temperatura'].touched">No
+                                        puedes ser
+                                        menor a 34°C.</small>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['temperatura'].errors?.['max'] && form.controls['temperatura'].touched">No
+                                        puedes ser
+                                        mayor a 43°C.</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="presion">Presión</label>
+                                    <input type="number" class="form-control" id="presion" name="presion"
+                                        formControlName="presion" placeholder="solo numeros en mm Hg, ej: 130" required>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['presion'].errors?.['required'] && form.controls['presion'].touched">
+                                        Ingrese una presión válida.
+                                    </small>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['presion'].errors?.['min'] && form.controls['presion'].touched">No
+                                        puedes ser
+                                        menor a 120 mm Hg.</small>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['presion'].errors?.['max'] && form.controls['presion'].touched">No
+                                        puedes ser
+                                        mayor a 200 mm Hg</small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" id="inputDinamicoUno" name="inputDinamicoUno"
+                                        formControlName="inputDinamicoUno" placeholder="Ingrese el nombre del 1er. campo" required>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['inputDinamicoUno'].errors?.['required'] && form.controls['inputDinamicoUno'].touched">
+                                        Debe ingresar un nombre para el campo
+                                    </small>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="campoDinamicoUno" name="campoDinamicoUno"
+                                        formControlName="campoDinamicoUno" placeholder="Ingrese el valor del 1er. campo" required>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['campoDinamicoUno'].errors?.['required'] && form.controls['campoDinamicoUno'].touched">
+                                        Debe ingresar un valor para el campo
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" id="inputDinamicoDos" name="inputDinamicoDos"
+                                        formControlName="inputDinamicoDos" placeholder="Ingrese el nombre del 2do. campo" required>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['inputDinamicoDos'].errors?.['required'] && form.controls['inputDinamicoDos'].touched">
+                                        Debe ingresar un nombre para el campo
+                                    </small>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="campoDinamicoDos" name="campoDinamicoDos"
+                                        formControlName="campoDinamicoDos" placeholder="Ingrese el valor del 2do. campo" required>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['campoDinamicoDos'].errors?.['required'] && form.controls['campoDinamicoDos'].touched">
+                                        Debe ingresar un valor para el campo
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" id="inputDinamicoTres" name="inputDinamicoTres"
+                                        formControlName="inputDinamicoTres" placeholder="Ingrese el nombre del 3er. campo" required>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['inputDinamicoTres'].errors?.['required'] && form.controls['inputDinamicoTres'].touched">
+                                        Debe ingresar un nombre para el campo
+                                    </small>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="campoDinamicoTres" name="campoDinamicoTres"
+                                        formControlName="campoDinamicoTres" placeholder="Ingrese el valor del 3er. campo" required>
+                                    <small class="invalid text-danger"
+                                        *ngIf="form.controls['campoDinamicoTres'].errors?.['required'] && form.controls['campoDinamicoTres'].touched">
+                                        Debe ingresar un valor para el campo
+                                    </small>
+                                </div>
+                            </div>
+                            <hr class="mb-4">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button class="btn btn-danger btn-lg btn-block" (click)="toggle()">Cerrar</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

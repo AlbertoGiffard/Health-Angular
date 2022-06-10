@@ -89,6 +89,7 @@ export class LoginComponent implements OnInit {
       if (user) {
         //redirect to home        
         this.authServicio.guardarUsuarioActual(usuarioEncontrado);
+        
         console.log('welcome home');
         this.router.navigate(['/home']);
 

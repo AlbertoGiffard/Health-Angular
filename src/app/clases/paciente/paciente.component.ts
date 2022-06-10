@@ -18,6 +18,13 @@ export class PacienteComponent implements OnInit {
   password: string;
   imagenUno: string;
   ImagenDos: string;
+  altura: number;
+  peso: number;
+  temperatura: number;
+  presion: number;
+  campoDinamicoUno: any;
+  campoDinamicoDos: any;
+  campoDinamicoTres: any;
 
   constructor() { 
     this.id = '';
@@ -30,6 +37,13 @@ export class PacienteComponent implements OnInit {
     this.password = '';
     this.imagenUno = '';
     this.ImagenDos = '';
+    this.altura = 0;
+    this.peso = 0;
+    this.temperatura = 0;
+    this.presion = 0;
+    this.campoDinamicoUno = 0;
+    this.campoDinamicoDos = 0;
+    this.campoDinamicoTres = 0;
   }
 
   setValues(nombre:string, apellido:string, edad:number, dni: number, obraSocial: string, email: string, password: string, imagenUno: string, ImagenDos: string) {

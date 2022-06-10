@@ -63,6 +63,7 @@ export class SolicitarTurnoComponent implements OnInit {
 
   ngOnInit(): void {
     this.traerUsuarioActual();
+    
     //agrega las lista de especialistas y especialidades
     this.firestore.getTipoUsuarios('especialista').subscribe(listDoc => {
       this.listaEspecialistas = listDoc;
@@ -76,6 +77,13 @@ export class SolicitarTurnoComponent implements OnInit {
   traerUsuarioActual() {
     //esto es lo que realmente va
     this.usuario = this.loginServicio.traerUsuarioActual();
+    this.usuario.id = this.usuario.uid;
+    /* 
+    this.firestore.actualizarUsuario(this.usuario).then(() => {
+    });*/
+    
+    
+    
 
     //esto se debe borrar
     /* this.usuario = {
@@ -101,7 +109,6 @@ export class SolicitarTurnoComponent implements OnInit {
     } else {
       this.paciente = this.usuario;
     }
-
   }
 
   subirTurno() {
@@ -199,6 +206,7 @@ export class SolicitarTurnoComponent implements OnInit {
 
   crearYEnviarTurno(paciente: PacienteComponent, especialidad: string, especialista: any, dia: string, hora: string) {
     let turno = new TurnoComponent();
+    
     turno.setValores(paciente, especialidad, especialista, dia, hora);
 
     this.firestore.guardarTurno(turno).then(() => {

@@ -42,9 +42,12 @@ export class NavbarComponent implements OnInit {
           if (user.email == email) {
             //aca debe ir el cambio de estado y validar que tipo de usuario es
             if (user.estado == 'pendiente') {
+              user.id = user.uid;
+              
               this.firestore.BuscarTipoUsuario(user).then(() => {
                 this.validado = true;
                 this.usuario = user;
+                this.authService.guardarUsuarioActual(this.usuario);
 
               });
             } else {
@@ -69,6 +72,7 @@ export class NavbarComponent implements OnInit {
                   if (doc.estado != 'pendiente') {
                     this.validado = true;
                     this.usuario = doc;
+                    this.authService.guardarUsuarioActual(this.usuario);
                   }                                   
                 }
               });

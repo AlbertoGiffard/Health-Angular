@@ -81,7 +81,10 @@
                 <app-administrador-turno></app-administrador-turno>
             </div>
             <div *ngSwitchCase="'misTurnos'">
-                <app-mis-turnos [especialista]="usuario"></app-mis-turnos>
+                <app-mis-turnos [especialista]="usuario" *ngIf="usuario.tipo == 'especialista';else paciente"></app-mis-turnos>
+                <ng-template #paciente>
+                    <app-paciente-mis-turnos [paciente]="usuario"></app-paciente-mis-turnos>
+                </ng-template>
             </div>
         </div>
     </div>

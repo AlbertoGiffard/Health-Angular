@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getAuth, isSignInWithEmailLink } from 'firebase/auth';
 import { map, Observable } from 'rxjs';
+import { PacienteComponent } from '../clases/paciente/paciente.component';
 import { TurnoComponent } from '../clases/turno/turno.component';
 
 @Injectable({
@@ -64,29 +65,6 @@ export class FirestoreService {
         })
       }));
   }
-
-  //esta despues se borra
-  /* async guardarEspecialidades() {
-    const guardar = [
-      {
-        especialidad: 'oftalmologia'
-      },
-      {
-        especialidad: 'pediatria'
-      },
-      {
-        especialidad: 'dentista'
-      }
-    ];
-
-    try {
-      guardar.forEach(dato => {
-        this.firestore.collection('especialidades').add({especialidad: dato.especialidad});
-      })
-    } catch (error) {
-      console.log(error);
-    }
-  } */
 
   async guardarEspecialidad(especialidad: string) {
     return this.firestore.collection('especialidades').add({ especialidad: especialidad });
