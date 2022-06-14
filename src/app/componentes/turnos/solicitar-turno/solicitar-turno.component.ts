@@ -28,12 +28,16 @@ export class SolicitarTurnoComponent implements OnInit {
   horaEscogida: string;
   diaEscogido: string;
   listaEspecialidades: string[];
+  listaDiasMostrar: string[];
   listaEspecialistas: EspecialistaComponent[];
   listaEspecialistasMostrar: EspecialistaComponent[];
   listaHorasDisponibles: number[];
   listaPacientes: PacienteComponent[];
   formulario: FormGroup;
   fb: FormBuilder;
+  botonDoctor:boolean;
+  botonDia:boolean;
+  botonHora:boolean;
 
   constructor(private firestore: FirestoreService, private dateAdapter: DateAdapter<Date>, private loginServicio: LoginService) {
     this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
@@ -41,7 +45,7 @@ export class SolicitarTurnoComponent implements OnInit {
     this.pacienteEscogido = 'Escoger paciente';
     this.doctorEscogido = 'Escoger doctor';
     this.horaEscogida = '00:00';
-    this.diaEscogido = '';
+    this.diaEscogido = 'dd/mm';
     this.fechaMinima = new Date();
     this.fechaMaxima = new Date();
     this.fechaMaxima.setDate(this.fechaMaxima.getDate() + 15);
@@ -49,6 +53,7 @@ export class SolicitarTurnoComponent implements OnInit {
     this.listaEspecialidades = [];
     this.listaEspecialistas = [];
     this.listaEspecialistasMostrar = [];
+    this.listaDiasMostrar = [];
     this.listaPacientes = [];
     this.listaHorasDisponibles = [];
     this.paciente = new PacienteComponent;
@@ -59,6 +64,9 @@ export class SolicitarTurnoComponent implements OnInit {
         'hora': [Validators.required]
       }
     );
+    this.botonDoctor = false;
+    this.botonDia = false;
+    this.botonHora = false;
   }
 
   ngOnInit(): void {
@@ -112,7 +120,7 @@ export class SolicitarTurnoComponent implements OnInit {
   }
 
   subirTurno() {
-    if (this.especialidadEscogida != 'Escoger especialidad' && this.doctorEscogido != 'Escoger doctor' && this.horaEscogida != '00:00' && this.diaEscogido != '') {
+    if (this.especialidadEscogida != 'Escoger especialidad' && this.doctorEscogido != 'Escoger doctor' && this.horaEscogida != '00:00' && this.diaEscogido != 'dd/mm') {
       if (this.usuario.tipo == 'administrador') {
         if (this.pacienteEscogido != 'Escoger paciente') {
           this.crearYEnviarTurno(this.paciente, this.especialidadEscogida, this.especialista.doctor, this.diaEscogido, this.horaEscogida);
@@ -151,10 +159,23 @@ export class SolicitarTurnoComponent implements OnInit {
             this.listaEspecialistasMostrar.push(doctor);
           }
         });
+        this.botonDoctor = true;
+        this.botonDia = false;
+        this.botonHora = false;
         break;
 
       case 'doctor':
         this.doctorEscogido = $event.view.getSelection().anchorNode.parentElement.innerText;
+        this.botonDoctor = true;
+        this.botonDia = true;
+        this.botonHora = false;
+        break;
+
+      case 'dia':
+        this.diaEscogido = $event.view.getSelection().anchorNode.parentElement.innerText;
+        this.botonDoctor = true;
+        this.botonDia = true;
+        this.botonHora = true;
         break;
 
       case 'hora':
@@ -179,6 +200,15 @@ export class SolicitarTurnoComponent implements OnInit {
     }
   }
 
+  getDias() {
+    const fecha = moment(new Date());
+
+    for (let i = 0; i < 15; i++) {
+      let fechaAux = fecha.add(1, 'days');
+      this.listaDiasMostrar.push(fechaAux.format("DD/MM"));
+    }   
+  }
+
   getPaciente(paciente: any) {
     if (this.usuario.tipo == 'administrador') {
       this.paciente = paciente;
@@ -201,6 +231,7 @@ export class SolicitarTurnoComponent implements OnInit {
     this.especialidadEscogida = 'Escoger especialidad';
     this.pacienteEscogido = 'Escoger paciente';
     this.doctorEscogido = 'Escoger doctor';
+    this.diaEscogido = 'dd/mm';
     this.horaEscogida = '00:00';
   }
 

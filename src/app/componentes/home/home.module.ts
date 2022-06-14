@@ -19,6 +19,8 @@ import { MisTurnosComponent } from '../turnos/mis-turnos/mis-turnos.component';
 import { PacienteMisTurnosComponent } from '../turnos/paciente-mis-turnos/paciente-mis-turnos.component';
 import { FormHistoriaClinicaComponent } from '../formulario/form-historia-clinica/form-historia-clinica.component';
 
+import {MatIconModule} from '@angular/material/icon';
+
 
 
 
