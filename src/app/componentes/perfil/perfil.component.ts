@@ -3,6 +3,7 @@ import { extendMoment } from 'moment-range';
 import { Moment } from 'moment';
 import { FirestoreService } from 'src/app/servicios/firestore.service';
 import Swal from 'sweetalert2';
+import { TurnoComponent } from 'src/app/clases/turno/turno.component';
 
 @Component({
   selector: 'app-perfil',
@@ -15,6 +16,11 @@ export class PerfilComponent implements OnInit {
   imagenDos:string;
   desde: string;
   hasta: string;
+  listadoTurnos:TurnoComponent[];
+  listadoTurnosMostrar:TurnoComponent[];
+  palabraBusqueda: string;
+  turno: TurnoComponent;
+  formHistoria: boolean;
 
   constructor(private firestore: FirestoreService) {
     this.imagenUno = '';
@@ -22,6 +28,11 @@ export class PerfilComponent implements OnInit {
     this.desde = '';
     this.hasta = '';
 
+    this.listadoTurnos = [];
+    this.listadoTurnosMostrar = [];
+    this.palabraBusqueda = '';
+    this.turno = new TurnoComponent();
+    this.formHistoria = false;
   }
 
   ngOnInit(): void {    
@@ -39,6 +50,17 @@ export class PerfilComponent implements OnInit {
         this.hasta = this.usuario.hasta;
       }
     }
+
+    const usuariosSub = this.firestore.getTurnos().subscribe(listDoc => {
+      listDoc.forEach((turno:TurnoComponent) => {
+        if (turno.paciente.email == this.usuario.email) {
+          this.listadoTurnos.push(turno);          
+        }
+      });
+
+      this.listadoTurnosMostrar = this.listadoTurnos;
+
+    });
   }
 
   guardarHorario() {    
@@ -51,6 +73,17 @@ export class PerfilComponent implements OnInit {
           title: 'Su perfil fue actualizado correctamente',
         })
       })
+    }
+  }
+
+  verMas(turno:TurnoComponent){
+    this.turno = turno;
+    this.formHistoria = true;
+  }
+
+  cerrarForm($event:boolean){    
+    if(!$event) {
+      this.formHistoria = !this.formHistoria;
     }
   }
 

@@ -45,7 +45,7 @@ export class SolicitarTurnoComponent implements OnInit {
     this.pacienteEscogido = 'Escoger paciente';
     this.doctorEscogido = 'Escoger doctor';
     this.horaEscogida = '00:00';
-    this.diaEscogido = 'dd/mm';
+    this.diaEscogido = 'dd/mm/yyyy';
     this.fechaMinima = new Date();
     this.fechaMaxima = new Date();
     this.fechaMaxima.setDate(this.fechaMaxima.getDate() + 15);
@@ -205,7 +205,7 @@ export class SolicitarTurnoComponent implements OnInit {
 
     for (let i = 0; i < 15; i++) {
       let fechaAux = fecha.add(1, 'days');
-      this.listaDiasMostrar.push(fechaAux.format("DD/MM"));
+      this.listaDiasMostrar.push(fechaAux.format("DD/MM/YYYY"));
     }   
   }
 

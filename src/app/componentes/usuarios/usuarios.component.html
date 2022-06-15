@@ -1,0 +1,42 @@
+<div class="containerRelative">
+    <div class="mt-4 mb-4">
+        <form class="form-inline my-2 my-lg-0 row">
+            <div class="col-md-8">
+                <input class="form-control mr-sm-2" type="search" placeholder="Buscar" [(ngModel)]="palabraBusqueda"
+                    [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
+                    (click)="buscarPalabra()">Buscar</button>
+            </div>
+        </form>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Paciente</th>
+                <th scope="col">Especialista</th>
+                <th scope="col">Especialidad</th>
+                <th scope="col">Día</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Acción</th>
+            </tr>
+        </thead>
+        <tbody class="align-middle">
+            <tr *ngFor="let turno of listadoTurnosMostrar">
+                <td>{{turno.paciente.nombre | lowercase}} {{turno.paciente.apellido | uppercase}}</td>
+                <td>{{turno.especialista.nombre | lowercase}} {{turno.especialista.apellido | uppercase}}</td>
+                <td>{{turno.especialidad}}</td>
+                <td>{{turno.dia}}</td>
+                <td><strong>{{turno.estado | uppercase}}</strong></td>
+                <td>
+                    <button class="btn btn-primary btn-sm mr-1" (click)="verMas(turno)">
+                        Ver más
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <app-historia-turno *ngIf="formHistoria" [lanzarAnimacion]="formHistoria" [turno]="turno"
+        class="formHistoria" (cerrarForm)="cerrarForm($event)"></app-historia-turno>
+</div>

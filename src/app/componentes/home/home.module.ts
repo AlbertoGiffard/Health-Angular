@@ -20,6 +20,9 @@ import { PacienteMisTurnosComponent } from '../turnos/paciente-mis-turnos/pacien
 import { FormHistoriaClinicaComponent } from '../formulario/form-historia-clinica/form-historia-clinica.component';
 
 import {MatIconModule} from '@angular/material/icon';
+import { MisPacientesComponent } from '../mis-pacientes/mis-pacientes.component';
+import { HistoriaTurnoComponent } from '../mis-pacientes/historia-turno/historia-turno.component';
+import { UsuariosComponent } from '../usuarios/usuarios.component';
 
 
 
@@ -34,7 +37,10 @@ import {MatIconModule} from '@angular/material/icon';
     AdministradorTurnoComponent,
     MisTurnosComponent,
     PacienteMisTurnosComponent,
-    FormHistoriaClinicaComponent
+    FormHistoriaClinicaComponent,
+    MisPacientesComponent,
+    HistoriaTurnoComponent,
+    UsuariosComponent
   ],
   imports: [
     CommonModule,

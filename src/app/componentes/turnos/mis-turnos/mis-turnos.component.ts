@@ -52,7 +52,47 @@ export class MisTurnosComponent implements OnInit {
         let arrayElementEspecialidad = element.especialidad.toLowerCase();
         let arrayElementPacienteNombre = element.paciente.nombre.toLowerCase();
         let arrayElementPacienteApellido = element.paciente.apellido.toLowerCase();
-        return arrayElementEspecialidad.includes(palabra) || arrayElementPacienteNombre.includes(palabra) || arrayElementPacienteApellido.includes(palabra);
+        let arrayElementComentario = element.comentario.toLowerCase();
+        let arrayElementResenia = element.resenia.toLowerCase();
+        let arrayElementDia = element.dia.toLowerCase();
+        let arrayElementEstado = element.estado.toLowerCase();
+        let arrayElementHora = element.hora.toLowerCase();
+        let arrayElementCampoDinamicoUnoClave = '}}}';
+        let arrayElementCampoDinamicoUnoValor = '}}}';
+        let arrayElementCampoDinamicoDosClave = '}}}';
+        let arrayElementCampoDinamicoDosValor = '}}}';
+        let arrayElementCampoDinamicoTresClave = '}}}';
+        let arrayElementCampoDinamicoTresValor = '}}}';
+        let arrayElementAltura = '}}}';
+        let arrayElementPeso = '}}}';
+        let arrayElementPresion = '}}}';
+        let arrayElementTemperatura = '}}}';
+
+        if (element.paciente.campoDinamicoUno) {
+          arrayElementCampoDinamicoUnoClave = element.paciente.campoDinamicoUno.clave.toLowerCase();
+          arrayElementCampoDinamicoUnoValor = element.paciente.campoDinamicoUno.valor.toLowerCase();
+        }
+        if (element.paciente.campoDinamicoDos) {
+          arrayElementCampoDinamicoDosClave = element.paciente.campoDinamicoDos.clave.toLowerCase();
+          arrayElementCampoDinamicoDosValor = element.paciente.campoDinamicoDos.valor.toLowerCase();
+        }
+        if (element.paciente.campoDinamicoTres) {
+          arrayElementCampoDinamicoTresClave = element.paciente.campoDinamicoTres.clave.toLowerCase();
+          arrayElementCampoDinamicoTresValor = element.paciente.campoDinamicoTres.valor.toLowerCase();
+        }
+        if (element.paciente.altura) {
+          arrayElementAltura = element.paciente.altura.toString();
+        }
+        if (element.paciente.peso) {
+          arrayElementPeso = element.paciente.peso.toString();
+        }
+        if (element.paciente.presion) {
+          arrayElementPresion = element.paciente.presion.toString();
+        }
+        if (element.paciente.temperatura) {
+          arrayElementTemperatura = element.paciente.temperatura.toString();
+        }
+        return arrayElementEspecialidad.includes(palabra) || arrayElementPacienteNombre.includes(palabra) || arrayElementPacienteApellido.includes(palabra) || arrayElementComentario.includes(palabra) || arrayElementResenia.includes(palabra) || arrayElementDia.includes(palabra) || arrayElementEstado.includes(palabra) || arrayElementHora.includes(palabra) || arrayElementCampoDinamicoUnoClave.includes(palabra) || arrayElementCampoDinamicoUnoValor.includes(palabra) || arrayElementCampoDinamicoDosClave.includes(palabra) || arrayElementCampoDinamicoDosValor.includes(palabra) || arrayElementCampoDinamicoTresClave.includes(palabra) || arrayElementCampoDinamicoTresValor.includes(palabra) || arrayElementAltura.includes(palabra) || arrayElementPeso.includes(palabra) || arrayElementPresion.includes(palabra) || arrayElementTemperatura.includes(palabra);
       })
 
     }
@@ -145,10 +185,8 @@ export class MisTurnosComponent implements OnInit {
     }
   }
 
-  cerrarForm($event:boolean){
-    console.log($event);
-    
-    if(!$event) {
+  cerrarForm($event: boolean) {
+    if (!$event) {
       this.formHistoria = !this.formHistoria;
     }
   }

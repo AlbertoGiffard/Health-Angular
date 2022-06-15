@@ -27,11 +27,21 @@
                                 &bull;Turnos
                             </label>
                         </li>
+                        <li class="list-group-item" appColores="darkcyan" (click)="irUsuarios()">
+                            <label>
+                                &bull;Usuarios
+                            </label>
+                        </li>
                     </ng-container>
                     <ng-container *ngSwitchCase="'especialista'">
-                        <li class="list-group-item" appColores="darkcyan" (click)="irMisturnos()">
+                        <li class="list-group-item" appColores="darkcyan" (click)="irMisTurnos()">
                             <label>
                                 &bull;Mis Turnos
+                            </label>
+                        </li>
+                        <li class="list-group-item" appColores="darkcyan" (click)="irMisPacientes()">
+                            <label>
+                                &bull;Pacientes
                             </label>
                         </li>
                         <li class="list-group-item" appColores="darkcyan" (click)="irPerfil()">
@@ -41,7 +51,7 @@
                         </li>
                     </ng-container>
                     <ng-container *ngSwitchDefault>
-                        <li class="list-group-item" appColores="darkcyan" (click)="irMisturnos()">
+                        <li class="list-group-item" appColores="darkcyan" (click)="irMisTurnos()">
                             <label>
                                 &bull;Mis Turnos
                             </label>
@@ -80,11 +90,17 @@
             <div *ngSwitchCase="'turnosAdministrador'">
                 <app-administrador-turno></app-administrador-turno>
             </div>
+            <div *ngSwitchCase="'misPacientes'">
+                <app-mis-pacientes [especialista]="usuario"></app-mis-pacientes>
+            </div>
             <div *ngSwitchCase="'misTurnos'">
                 <app-mis-turnos [especialista]="usuario" *ngIf="usuario.tipo == 'especialista';else paciente"></app-mis-turnos>
                 <ng-template #paciente>
                     <app-paciente-mis-turnos [paciente]="usuario"></app-paciente-mis-turnos>
                 </ng-template>
+            </div>
+            <div *ngSwitchCase="'usuarios'">
+                <app-usuarios></app-usuarios>
             </div>
         </div>
     </div>

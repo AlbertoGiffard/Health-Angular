@@ -25,7 +25,7 @@ import Swal from 'sweetalert2';
         backgroundColor: '#a8b3b3'
       })),
       transition('* => *', [
-        animate('0.5s')
+        animate('1.5s')
       ]),
     ]),
   ],

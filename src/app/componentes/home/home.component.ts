@@ -65,7 +65,15 @@ export class HomeComponent implements OnInit {
     this.componenteMostrar = 'turnosAdministrador';
   }
 
-  irMisturnos() {
+  irMisTurnos() {
     this.componenteMostrar = 'misTurnos';
+  }
+
+  irMisPacientes() {
+    this.componenteMostrar = 'misPacientes';
+  }
+
+  irUsuarios() {
+    this.componenteMostrar = 'usuarios';
   }
 }
