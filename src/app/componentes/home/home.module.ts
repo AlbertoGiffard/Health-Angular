@@ -23,6 +23,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { MisPacientesComponent } from '../mis-pacientes/mis-pacientes.component';
 import { HistoriaTurnoComponent } from '../mis-pacientes/historia-turno/historia-turno.component';
 import { UsuariosComponent } from '../usuarios/usuarios.component';
+import { CargandoModule } from '../cargando/cargando.module';
 
 
 
@@ -52,7 +53,8 @@ import { UsuariosComponent } from '../usuarios/usuarios.component';
     RecaptchaFormsModule,
     MatDatepickerModule,
     MatFormFieldModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    CargandoModule
   ],
   providers: [
     {

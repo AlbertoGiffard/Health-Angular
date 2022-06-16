@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TurnoComponent } from 'src/app/clases/turno/turno.component';
+import { ExcelService } from 'src/app/servicios/excel.service';
 import { FirestoreService } from 'src/app/servicios/firestore.service';
 
 @Component({
@@ -8,13 +9,15 @@ import { FirestoreService } from 'src/app/servicios/firestore.service';
   styleUrls: ['./usuarios.component.scss']
 })
 export class UsuariosComponent implements OnInit {
+  @Input() paraMostrar: boolean;
   listadoTurnos:TurnoComponent[];
   listadoTurnosMostrar:TurnoComponent[];
   palabraBusqueda: string;
   turno: TurnoComponent;
   formHistoria: boolean;
 
-  constructor(private firestore: FirestoreService) {
+  constructor(private firestore: FirestoreService, private servicioExcel:ExcelService) {
+    this.paraMostrar = false;
     this.listadoTurnos = [];
     this.listadoTurnosMostrar = [];
     this.palabraBusqueda = '';
@@ -28,6 +31,10 @@ export class UsuariosComponent implements OnInit {
 
       this.listadoTurnosMostrar = this.listadoTurnos;
     });
+  }
+
+  renderizar = (mostrar: boolean) => {
+    this.paraMostrar = !mostrar;
   }
 
   buscarPalabra() {
@@ -56,6 +63,18 @@ export class UsuariosComponent implements OnInit {
     if(!$event) {
       this.formHistoria = !this.formHistoria;
     }
+  }
+
+  descargarExcel(){
+    var archivo = JSON.parse(JSON.stringify(this.listadoTurnosMostrar));
+
+    archivo.forEach((turno:any) => {
+      turno.paciente = turno.paciente.nombre + ' ' + turno.paciente.apellido;
+      turno.especialista = turno.especialista.nombre + ' ' + turno.especialista.apellido;
+      turno.hora = turno.hora + ':00hs.';
+    })
+    
+    this.servicioExcel.exportAsExcelFile(archivo, 'usuarios');
   }
 
 }

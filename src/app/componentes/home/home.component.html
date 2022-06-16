@@ -1,3 +1,4 @@
+<app-cargando (cargado)="renderizar($event)"></app-cargando>
 <div class="row h-100">
     <div class="bg-primary h-100 p-2 col-md-2">
         <div class="text-center">
@@ -71,10 +72,13 @@
             </ul>
         </div>
     </div>
-    <div class="col-md-10 h-100">
+    <div class="col-md-10 h-100" @inOut>
         <div [ngSwitch]="componenteMostrar">
-            <div *ngSwitchDefault class="align-content-center text-center display-2 my-auto">Escoge alguna opción del
-                menu</div>
+            <div *ngSwitchDefault class="align-content-center text-center display-2 my-auto">
+                <span>
+                    Escoge alguna opción del menu
+                </span>
+            </div>
             <div *ngSwitchCase="'listadoPacientes'">
                 <app-especialistas-pendientes></app-especialistas-pendientes>
             </div>
