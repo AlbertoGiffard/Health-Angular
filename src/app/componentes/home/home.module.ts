@@ -24,6 +24,7 @@ import { MisPacientesComponent } from '../mis-pacientes/mis-pacientes.component'
 import { HistoriaTurnoComponent } from '../mis-pacientes/historia-turno/historia-turno.component';
 import { UsuariosComponent } from '../usuarios/usuarios.component';
 import { CargandoModule } from '../cargando/cargando.module';
+import { EstadisticasComponent } from '../estadisticas/estadisticas.component';
 
 
 
@@ -41,7 +42,8 @@ import { CargandoModule } from '../cargando/cargando.module';
     FormHistoriaClinicaComponent,
     MisPacientesComponent,
     HistoriaTurnoComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    EstadisticasComponent
   ],
   imports: [
     CommonModule,

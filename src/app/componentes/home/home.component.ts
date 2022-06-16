@@ -41,8 +41,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     //esto es lo que realmente va
-    this.usuario = this.loginServicio.traerUsuarioActual();
-    
+    this.usuario = this.loginServicio.traerUsuarioActual();    
 
     /* this.usuario = {
       apellido: "Falcon",
@@ -101,5 +100,9 @@ export class HomeComponent implements OnInit {
 
   irUsuarios() {
     this.componenteMostrar = 'usuarios';
+  }
+
+  irEstadisticas(){
+    this.componenteMostrar = 'estadisticas';
   }
 }

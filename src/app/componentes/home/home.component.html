@@ -33,6 +33,11 @@
                                 &bull;Usuarios
                             </label>
                         </li>
+                        <li class="list-group-item" appColores="darkcyan" (click)="irEstadisticas()">
+                            <label>
+                                &bull;Estadísticas
+                            </label>
+                        </li>
                     </ng-container>
                     <ng-container *ngSwitchCase="'especialista'">
                         <li class="list-group-item" appColores="darkcyan" (click)="irMisTurnos()">
@@ -105,6 +110,9 @@
             </div>
             <div *ngSwitchCase="'usuarios'">
                 <app-usuarios></app-usuarios>
+            </div>
+            <div *ngSwitchCase="'estadisticas'">
+                <app-estadisticas></app-estadisticas>
             </div>
         </div>
     </div>
