@@ -1,46 +1,101 @@
-<div class="container-seleccion">
-    <div class="row">
+<div class="container-seleccion p-3">
+    <div class="row mb-3">
         <div class="col-md-6">
-            <button>Ingresos</button>
+            <button class="btn btn-info dropdown-toggle w-75" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
+                {{tipoChart}}
+            </button>
+            <div class="dropdown-menu w-75" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" (click)="getValorDropdown($event, 'tipoChart')"
+                    *ngFor="let opcion of listaTipoCharts">{{opcion}}</a>
+            </div>
         </div>
-        <div class="col-md-6 d-flex flex-row">
-            <span>
+        <div class="col-md-6 d-flex flex-row align-items-center">
+            <span class="bold font-text">
                 Especialidad:
             </span>
-            <button>Oftalmologia</button>
+            <button class="btn btn-info dropdown-toggle w-75 ml-3" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
+                {{tipoEspecialidad}}
+            </button>
+            <div class="dropdown-menu w-75" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" (click)="getValorDropdown($event, 'tipoEspecialidad')"
+                    *ngFor="let especialidad of listaEspecialidades">{{especialidad.especialidad}}</a>
+            </div>
         </div>
         <ng-template>
             <div class="col-md-6 d-flex flex-row">
-                <span>
-                    Especialista:
-                </span>
-                <button>Dr. Falcon</button>
+                <button class="btn btn-info dropdown-toggle w-75 ml-3" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
+                    {{tipoEspecialista.nombre}} {{tipoEspecialista.apellido}}
+                </button>
+                <div class="dropdown-menu w-75" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" (click)="getValorDropdown($event, 'tipoEspecialista')"
+                        *ngFor="let especialista of listaEspecialistasMostrar">{{especialista.nombre}}
+                        {{especialista.apellido}}</a>
+                </div>
             </div>
         </ng-template>
     </div>
+    <hr>
     <div class="row">
-        <div class="col-md-6">
-            <span>
+        <div class="col-md-12 text-center">
+            <span class="font-title">
                 Rango de fechas:
             </span>
-        </div>
-        <div class="col-md-6  d-flex flex-row">
-            <button>01/01/2022</button>
-            <button>31/12/2022</button>
+            <div class="row mt-3">
+                <!-- <div class="col-md-6 d-flex flex-row align-items-center justify-content-center">
+                    <span class="bold font-text">
+                        Desde:
+                    </span>
+                    <input type="date" class="btn btn-info dropdown-toggle w-75 ml-3" >
+                </div>
+                <div class="col-md-6 d-flex flex-row align-items-center justify-content-center">
+                    <span class="bold font-text">
+                        Hasta:
+                    </span>
+                    <input type="date" class="btn btn-info dropdown-toggle w-75 ml-3" [ngModel]="diaFinal | date: 'dd-MM-yyyy'" [value]="diaFinal | date: 'dd-MM-yyyy'" [max]="diaFinal">
+                    <!-- <button class="btn btn-info dropdown-toggle w-75" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
+                        {{diaFinal}}
+                    </button>
+                    <div class="dropdown-menu w-75" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" (click)="getValorDropdown($event, 'tipoChart')"
+                            *ngFor="let fecha of listaRangoFinal">{{fecha | date}}</a>
+                    </div> 
+                </div> -->
+                <div>
+                    <mat-form-field class="font-text">
+                        <mat-label>Ingrese un rango de fechas</mat-label>
+                        <mat-date-range-input [rangePicker]="picker" [max]="fechaDeHoy">
+                            <input matStartDate placeholder="Desde" [(ngModel)]="desde">
+                            <input matEndDate placeholder="Hasta" [(ngModel)]="hasta">
+                        </mat-date-range-input>
+                        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                    </mat-form-field>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
+    <hr>
+    <div class="row mt-2 mb-3">
+        <div class="col-md-4 text-center">
             <button class="btn btn-lg btn-outline-warning">Limpiar</button>
         </div>
-        <div class="col-md-6">
-            <button class="btn btn-lg btn-outline-primary">Buscar</button>
+        <div class="col-md-4 text-center">
+            <button class="btn btn-lg btn-outline-primary" (click)="graficar()">Buscar</button>
+        </div>
+        <div class="col-md-4 text-center">
+            <button class="btn btn-lg btn-outline-success">Descargar Excel</button>
         </div>
     </div>
     <!-- grafiquitos -->
-    <div class="row justify-content-center text-center">
-        <div class="col-md-8">
-            <button class="btn btn-lg btn-outline-success">Descargar</button>
+    <div [ngSwitch]="graficoMostrar">
+        <div *ngSwitchDefault>
+            <app-log-ingresos [listaIngresosOriginal]="listaIngresosMostrar"></app-log-ingresos>
         </div>
+        <!-- <div *ngSwitchCase="'listadoPacientes'"></div> -->
     </div>
 </div>

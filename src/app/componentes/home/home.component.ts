@@ -9,22 +9,22 @@ import { LoginService } from 'src/app/servicios/login.service';
   styleUrls: ['./home.component.scss'],
   animations: [
     trigger('inOut', [
-      transition('void => *', [ 
-        query('div', style({ opacity: 0 })),      
-        query('span', style({ opacity: 0 })),      
+      transition('void => *', [
+        query('div', style({ opacity: 0 })),
+        query('span', style({ opacity: 0 })),
         query('div', animate('500ms',
-          style({ opacity: 1 })          
-        )),          
+          style({ opacity: 1 })
+        )),
         query('span', animate('1000ms',
-          style({ opacity: 1 })         
-        )), 
+          style({ opacity: 1 })
+        )),
       ]),
       transition('* => void', [
-        animate('500ms', 
-          style({ opacity: 0 })          
-        ) 
+        animate('500ms',
+          style({ opacity: 0 })
+        )
       ])
-    ]) 
+    ])
   ],
 })
 export class HomeComponent implements OnInit {
@@ -41,24 +41,22 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     //esto es lo que realmente va
-    this.usuario = this.loginServicio.traerUsuarioActual();    
+    //this.usuario = this.loginServicio.traerUsuarioActual();
 
-    /* this.usuario = {
-      apellido: "Falcon",
-      desde: "09:00",
-      dni: 54896547,
-      edad: 37,
-      email: "especialistauno@gmail.com",
-      especialidad: "oftalmologia",
+
+    this.usuario = {
+      apellido: "Rik",
+      dni: 96458741,
+      edad: 51,
+      email: "vision@gmail.com",
       estado: "validado",
-      hasta: "18:00",
-      id: "1JzmWpQ0UaAo37PAAGi0",
-      imagen: "https://firebasestorage.googleapis.com/v0/b/clinica-giffard.appspot.com/o/especialistauno.jpg?alt=media&token=b46cb1bf-f2d3-44fa-a1e5-8c87d9261b32",
-      nombre: "Dr.",
+      id: "",
+      imagen: "https://firebasestorage.googleapis.com/v0/b/clinica-giffard.appspot.com/o/administrador.jpg?alt=media&token=46a106b0-3161-4235-b7d1-b9d200cc7524",
+      nombre: "Dr. Vision",
       password: "123456",
-      tipo: "especialista",
-      uid: "1JzmWpQ0UaAo37PAAGi0"
-    }; */
+      tipo: "administrador",
+      uid: "HYp7g56XcossWQBH3zd7"
+    };
 
     //esto si va
 
@@ -102,7 +100,7 @@ export class HomeComponent implements OnInit {
     this.componenteMostrar = 'usuarios';
   }
 
-  irEstadisticas(){
+  irEstadisticas() {
     this.componenteMostrar = 'estadisticas';
   }
 }

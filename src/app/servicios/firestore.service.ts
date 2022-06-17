@@ -92,5 +92,22 @@ export class FirestoreService {
     return this.firestore.collection('turnos').doc(turno.id).update(turno);
   }
 
+  /* INGRESOS */
+
+  async guardarIngreso(ingreso: any) {
+    return this.firestore.collection('ingresos').add({ ...ingreso });
+  }
+
+  getIngresos = (): Observable<any[]> => {
+    return this.firestore.collection('ingresos').snapshotChanges().pipe(
+      map(docs => {
+        return docs.map(d => {
+          const data = d.payload.doc.data() as any[];
+          const id = d.payload.doc.id;
+
+          return { id, ...data };
+        })
+      }));
+  }
 
 }

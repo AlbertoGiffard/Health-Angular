@@ -89,6 +89,15 @@ export class LoginComponent implements OnInit {
       if (user) {
         //redirect to home        
         this.authServicio.guardarUsuarioActual(usuarioEncontrado);
+        const fecha = new Date();
+
+        const ingreso = {
+          usuario: usuarioEncontrado,
+          dia: fecha,
+          hora: fecha.getHours() + ':' + fecha.getMinutes()
+        };
+
+        this.firestore.guardarIngreso(ingreso);
         
         console.log('welcome home');
         this.router.navigate(['/home']);

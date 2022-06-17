@@ -25,6 +25,9 @@ import { HistoriaTurnoComponent } from '../mis-pacientes/historia-turno/historia
 import { UsuariosComponent } from '../usuarios/usuarios.component';
 import { CargandoModule } from '../cargando/cargando.module';
 import { EstadisticasComponent } from '../estadisticas/estadisticas.component';
+import { NgChartsModule } from 'ng2-charts';
+import { LogIngresosComponent } from '../listados/log-ingresos/log-ingresos.component';
+import { CurvaComponent } from '../graficos/curva/curva.component';
 
 
 
@@ -43,7 +46,9 @@ import { EstadisticasComponent } from '../estadisticas/estadisticas.component';
     MisPacientesComponent,
     HistoriaTurnoComponent,
     UsuariosComponent,
-    EstadisticasComponent
+    EstadisticasComponent,
+    LogIngresosComponent,
+    CurvaComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +61,8 @@ import { EstadisticasComponent } from '../estadisticas/estadisticas.component';
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    CargandoModule
+    CargandoModule,
+    NgChartsModule
   ],
   providers: [
     {
