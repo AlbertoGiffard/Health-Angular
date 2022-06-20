@@ -71,6 +71,9 @@
                 <input type="submit" value="Confirmar" class="btn btn-block btn-outline-primary btn-lg" (click)="guardarHorario()">
             </div>
         </div>
+        <div class="col-md-12 mb-3 text-center" *ngIf="usuario.tipo == 'paciente'">
+            <input type="submit" value="Descargar PDF" class="btn btn-block btn-outline-primary btn-lg w-75" (click)="descargarPdf()">
+        </div>
     </div>
     <div class="container-turnos">
         <div class="text-center">

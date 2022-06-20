@@ -11,12 +11,12 @@
                     (click)="buscarPalabra()">Buscar</button>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
-                    (click)="descargarExcel()">Descargar Excel</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="descargarExcel()">Descargar
+                    Excel</button>
             </div>
         </form>
     </div>
-    <table class="table table-hover">
+    <!-- <table class="table table-hover">
         <thead>
             <tr>
                 <th scope="col">Paciente</th>
@@ -41,7 +41,20 @@
                 </td>
             </tr>
         </tbody>
-    </table>
-    <app-historia-turno *ngIf="formHistoria" [lanzarAnimacion]="formHistoria" [turno]="turno"
-        class="formHistoria" (cerrarForm)="cerrarForm($event)"></app-historia-turno>
+    </table> -->
+    <div class="d-flex flex-wrap justify-content-around mb-4">
+        <div class="card pointer" style="width: 18rem;" *ngFor="let paciente of listadoPacientesMostrar" (click)="descargarExcelPaciente(paciente)">
+            <img class="card-img-top" src={{paciente.imagenUno}} alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title display-4"><strong>{{paciente.nombre | lowercase}} {{paciente.apellido |
+                        uppercase}}</strong></h5>
+                <p class="card-text">Email: <strong>{{paciente.email}}</strong></p>
+                <p class="card-text">Obra Social: <strong>{{paciente.obraSocial}}</strong></p>
+            </div>
+        </div>
+    </div>
+    <!-- <app-historia-turno *ngIf="formHistoria" [lanzarAnimacion]="formHistoria" [turno]="turno"
+        class="formHistoria" (cerrarForm)="cerrarForm($event)"></app-historia-turno> -->
+    <app-historia-paciente *ngIf="formHistoria" [lanzarAnimacion]="formHistoria" [paciente]="paciente"
+        class="formHistoria" (cerrarForm)="cerrarForm($event)"></app-historia-paciente>
 </div>

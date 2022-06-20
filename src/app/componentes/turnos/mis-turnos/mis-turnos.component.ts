@@ -3,6 +3,7 @@ import { EspecialistaComponent } from 'src/app/clases/especialista/especialista.
 import { TurnoComponent } from 'src/app/clases/turno/turno.component';
 import { FirestoreService } from 'src/app/servicios/firestore.service';
 import Swal from 'sweetalert2';
+import { jsPDF } from "jspdf";
 
 @Component({
   selector: 'app-mis-turnos',
@@ -18,6 +19,7 @@ export class MisTurnosComponent implements OnInit {
   listadoParaMostrar: TurnoComponent[];
   palabraBusqueda: string;
   formHistoria: boolean;
+  documentoPDF = new jsPDF();
 
   constructor(private firestore: FirestoreService) {
     this.turno = new TurnoComponent();
@@ -189,6 +191,33 @@ export class MisTurnosComponent implements OnInit {
     if (!$event) {
       this.formHistoria = !this.formHistoria;
     }
+  }
+
+  descargarPdf() {
+    this.documentoPDF = new jsPDF({ putOnlyUsedFonts: true });
+    const fecha = new Date();
+    const fechaPdf = fecha.getDate() + '/' + (fecha.getMonth() + 1) + '/' + fecha.getFullYear();
+    var distancia = 85;
+    const cabezales = (['Especialidad', 'Paciente', 'Día', 'Estado', 'Comentario']);
+    var data:any[] = [];
+
+    this.listadoParaMostrar.forEach((turno: TurnoComponent) => {
+      data.push({
+        Especialidad: turno.especialidad,
+        Paciente: turno.paciente.nombre + ' ' + turno.paciente.apellido,
+        Día: turno.dia,
+        Estado: turno.estado,
+        Comentario: turno.comentario
+      })
+    });
+
+    this.documentoPDF.addImage("https://cdn-icons-png.flaticon.com/512/2966/2966327.png", "JPEG", 150, 10, 50, 50);
+    this.documentoPDF.text("Turnos: " + this.especialista.nombre + ' ' + this.especialista.apellido, 25, 25);
+    this.documentoPDF.text("Fecha de emision: " + fechaPdf, 25, 35);
+
+    this.documentoPDF.table(25, 70, data, cabezales, { autoSize: true });
+
+    this.documentoPDF.save(this.especialista.apellido + ".pdf");
   }
 
 }

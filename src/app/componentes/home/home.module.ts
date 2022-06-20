@@ -28,6 +28,8 @@ import { EstadisticasComponent } from '../estadisticas/estadisticas.component';
 import { NgChartsModule } from 'ng2-charts';
 import { LogIngresosComponent } from '../listados/log-ingresos/log-ingresos.component';
 import { CurvaComponent } from '../graficos/curva/curva.component';
+import { TortaComponent } from '../graficos/torta/torta.component';
+import { HistoriaPacienteComponent } from '../mis-pacientes/historia-paciente/historia-paciente.component';
 
 
 
@@ -48,7 +50,9 @@ import { CurvaComponent } from '../graficos/curva/curva.component';
     UsuariosComponent,
     EstadisticasComponent,
     LogIngresosComponent,
-    CurvaComponent
+    CurvaComponent,
+    TortaComponent,
+    HistoriaPacienteComponent
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges  } from '@angular/core';
 import { TurnoComponent } from 'src/app/clases/turno/turno.component';
 import { ChartOptions, ChartType, ChartDataset } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
 
 
 @Component({
@@ -10,34 +9,61 @@ import { Color, Label } from 'ng2-charts';
   styleUrls: ['./curva.component.scss']
 })
 export class CurvaComponent implements OnInit {
-  @Input() listaTurnos: TurnoComponent[];
-  @Input() desde: string;
-  @Input() hasta: string;
-  
-  lineChartData: ChartDataset[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-  ];
-  lineChartLabels: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  lineChartOptions: (ChartOptions) = {
-    responsive: true,
-  };
-  lineChartColors: any[] = [
-    {
-      borderColor: 'black',
-      backgroundColor: 'rgba(255,0,0,0.3)',
-    },
-  ];
-  lineChartLegend = true;
-  lineChartType = 'line';
-  lineChartPlugins = [];
+  @Input() listaData: string[];
+  @Input() cantidadData: any[];
+  @Input() titulo: string;
+  lineChartData: ChartDataset[];
+  lineChartLabels: string[];
+  lineChartOptions: (ChartOptions);
+  lineChartLegend: boolean;
+  lineChartType: ChartType;
 
   constructor() {
-    this.listaTurnos = [];
-    this.desde = '';
-    this.hasta = '';
-   }
-
-  ngOnInit(): void {
+    this.listaData = [];
+    this.cantidadData = [];
+    this.titulo = 'Datos';
+    this.lineChartData = [];
+    this.lineChartLabels = [];
+    this.lineChartOptions = {};
+    this.lineChartLegend = true;
+    this.lineChartType = 'line';
   }
 
+  ngOnInit(): void {        
+    this.lineChartData = [
+      {
+        data: this.cantidadData,
+        label: this.titulo,
+        borderColor: 'black',
+        backgroundColor: 'rgba(13, 138, 221, 0.3)',
+        fill: 'origin'
+      },
+    ];
+    this.lineChartLabels = this.listaData;
+    this.lineChartOptions = {
+      responsive: false,
+      elements: {
+        line: {
+          tension: 0.5
+        }
+      }
+    };
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['cantidadData'].previousValue) {
+      setTimeout(() => {
+        this.lineChartData = [
+          {
+            data: changes['cantidadData'].currentValue,
+            label: this.titulo,
+            borderColor: 'black',
+            backgroundColor: 'rgba(13, 138, 221, 0.3)',
+            fill: 'origin'
+          },
+        ];
+        this.lineChartLabels = changes['listaData'].currentValue;      
+      }, 1500);
+    }
+  }
 }

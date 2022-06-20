@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { PacienteComponent } from 'src/app/clases/paciente/paciente.component';
 import { TurnoComponent } from 'src/app/clases/turno/turno.component';
 import { ExcelService } from 'src/app/servicios/excel.service';
 import { FirestoreService } from 'src/app/servicios/firestore.service';
@@ -12,25 +13,38 @@ export class UsuariosComponent implements OnInit {
   @Input() paraMostrar: boolean;
   listadoTurnos:TurnoComponent[];
   listadoTurnosMostrar:TurnoComponent[];
+  listadoPacientesMostrar:PacienteComponent[];
+  listadoPacientes:PacienteComponent[];
   palabraBusqueda: string;
   turno: TurnoComponent;
+  paciente: PacienteComponent;
   formHistoria: boolean;
 
   constructor(private firestore: FirestoreService, private servicioExcel:ExcelService) {
     this.paraMostrar = false;
     this.listadoTurnos = [];
     this.listadoTurnosMostrar = [];
+    this.listadoPacientesMostrar = [];
+    this.listadoPacientes = [];
     this.palabraBusqueda = '';
     this.turno = new TurnoComponent();
+    this.paciente = new PacienteComponent();
     this.formHistoria = false;
    }
 
   ngOnInit(): void {
-    const usuariosSub = this.firestore.getTurnos().subscribe(listDoc => {
+    //version 1
+    /* const usuariosSub = this.firestore.getTurnos().subscribe(listDoc => {
       this.listadoTurnos = listDoc;
 
       this.listadoTurnosMostrar = this.listadoTurnos;
-    });
+    }); */
+
+    const usuariosSub = this.firestore.getTipoUsuarios('paciente').subscribe(listDoc => {
+      this.listadoPacientes = listDoc;
+
+      this.listadoPacientesMostrar = this.listadoPacientes;
+    })
   }
 
   renderizar = (mostrar: boolean) => {
@@ -54,8 +68,14 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
-  verMas(turno:TurnoComponent){
+  //version 1
+/*   verMas(turno:TurnoComponent){
     this.turno = turno;
+    this.formHistoria = true;
+  } */
+
+  verMas(paciente: PacienteComponent) {
+    this.paciente = paciente;
     this.formHistoria = true;
   }
 
@@ -65,16 +85,35 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
+  //version 1
   descargarExcel(){
-    var archivo = JSON.parse(JSON.stringify(this.listadoTurnosMostrar));
-
-    archivo.forEach((turno:any) => {
-      turno.paciente = turno.paciente.nombre + ' ' + turno.paciente.apellido;
-      turno.especialista = turno.especialista.nombre + ' ' + turno.especialista.apellido;
-      turno.hora = turno.hora + ':00hs.';
-    })
+    var archivo = JSON.parse(JSON.stringify(this.listadoPacientesMostrar));
     
     this.servicioExcel.exportAsExcelFile(archivo, 'usuarios');
+  }
+
+  descargarExcelPaciente(paciente:PacienteComponent){
+    var turnosDescargar:any = [];
+
+    const sub = this.firestore.getTurnos().subscribe(listDoc => {
+      listDoc.forEach((turno:TurnoComponent) => {
+        if (turno.paciente.email == paciente.email) {
+          turnosDescargar.push({
+            paciente: paciente.nombre + ' ' + paciente.apellido,
+            especialista: turno.especialista.nombre + ' ' + turno.especialista.apellido,
+            dia: turno.dia,
+            especialidad: turno.especialidad,
+            estado: turno.estado,
+            comentario: turno.comentario
+          })
+        }
+      })
+    });
+
+    setTimeout(() => {
+      sub.unsubscribe();
+      this.servicioExcel.exportAsExcelFile(turnosDescargar, 'turnos'+ paciente.apellido);
+    }, 800);
   }
 
 }

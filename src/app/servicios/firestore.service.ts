@@ -9,6 +9,8 @@ import { TurnoComponent } from '../clases/turno/turno.component';
   providedIn: 'root'
 })
 export class FirestoreService {
+  datos: any;
+
   constructor(private firestore: AngularFirestore) { }
 
   getUsuario = (uid: any): Observable<any> => {
@@ -76,6 +78,10 @@ export class FirestoreService {
     return this.firestore.collection('turnos').add({ ...turno });
   }
 
+  async guardarTurnosGrafico() {
+    return this.firestore.collection('turnosGraficos').add({ ...this.datos });
+  }
+
   getTurnos = (): Observable<any[]> => {
     return this.firestore.collection('turnos').snapshotChanges().pipe(
       map(docs => {
@@ -92,6 +98,62 @@ export class FirestoreService {
     return this.firestore.collection('turnos').doc(turno.id).update(turno);
   }
 
+  getTurnosPorQuery = (desde: Date, hasta: Date): Observable<any[]> => {
+    var mesDesde = '';
+    var mesHasta = '';
+    var diaDesde = '';
+    var diaHasta = '';
+
+    if (desde.getMonth() + 1 < 10) {
+      mesDesde = '0' + (desde.getMonth() + 1);
+    } else {
+      mesDesde = (desde.getMonth() + 1).toString();
+    }
+
+    if (hasta.getMonth() + 1 < 10) {
+      mesHasta = '0' + (hasta.getMonth() + 1);
+    } else {
+      mesHasta = (hasta.getMonth() + 1).toString();
+    }
+
+    if (desde.getDate() < 10) {
+      diaDesde = '0' + desde.getDate();
+    } else {
+      diaDesde = desde.getDate().toString();
+    }
+
+    if (hasta.getDate() + 1 < 10) {
+      diaHasta = '0' + hasta.getDate();
+    } else {
+      diaHasta = hasta.getDate().toString();
+    }
+
+    const inicio = desde.getFullYear() + '-' + mesDesde + '-' + diaDesde;
+    const fin = hasta.getFullYear() + '-' + mesHasta + '-' + diaHasta;
+
+    return this.firestore.collection('turnos', ref => ref.where('dia', '>', inicio).where('dia', '<', fin)).snapshotChanges().pipe(
+      map(docs => {
+        return docs.map(d => {
+          const data = d.payload.doc.data() as any[];
+          const id = d.payload.doc.id;
+
+          return { id, ...data };
+        })
+      }));
+  }
+
+  getTurnosPorfecha = (fecha: string): Observable<any[]> => {
+    return this.firestore.collection('turnos', ref => ref.where('dia', '==', fecha)).snapshotChanges().pipe(
+      map(docs => {
+        return docs.map(d => {
+          const data = d.payload.doc.data() as any[];
+          const id = d.payload.doc.id;
+
+          return { id, ...data };
+        })
+      }));
+  }
+
   /* INGRESOS */
 
   async guardarIngreso(ingreso: any) {
@@ -100,6 +162,50 @@ export class FirestoreService {
 
   getIngresos = (): Observable<any[]> => {
     return this.firestore.collection('ingresos').snapshotChanges().pipe(
+      map(docs => {
+        return docs.map(d => {
+          const data = d.payload.doc.data() as any[];
+          const id = d.payload.doc.id;
+
+          return { id, ...data };
+        })
+      }));
+  }
+
+  getIngresosPorQuery = (desde: Date, hasta: Date): Observable<any[]> => {
+    var mesDesde = '';
+    var mesHasta = '';
+    var diaDesde = '';
+    var diaHasta = '';
+
+    if (desde.getMonth() + 1 < 10) {
+      mesDesde = '0' + (desde.getMonth() + 1);
+    } else {
+      mesDesde = (desde.getMonth() + 1).toString();
+    }
+
+    if (hasta.getMonth() + 1 < 10) {
+      mesHasta = '0' + (hasta.getMonth() + 1);
+    } else {
+      mesHasta = (hasta.getMonth() + 1).toString();
+    }
+
+    if (desde.getDate() < 10) {
+      diaDesde = '0' + desde.getDate();
+    } else {
+      diaDesde = desde.getDate().toString();
+    }
+
+    if (hasta.getDate() + 1 < 10) {
+      diaHasta = '0' + hasta.getDate();
+    } else {
+      diaHasta = hasta.getDate().toString();
+    }
+
+    const inicio = desde;
+    const fin = hasta;
+
+    return this.firestore.collection('ingresos', ref => ref.where('dia', '>', inicio).where('dia', '<', fin)).snapshotChanges().pipe(
       map(docs => {
         return docs.map(d => {
           const data = d.payload.doc.data() as any[];

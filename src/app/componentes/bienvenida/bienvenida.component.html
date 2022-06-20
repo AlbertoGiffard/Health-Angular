@@ -1,6 +1,6 @@
 <!-- <app-loading (cargado)="renderizar($event)"></app-loading> -->
 <app-cargando (cargado)="renderizar($event)"></app-cargando>
-<div class="mx-0 home" *ngIf="paraMostrar">
+<div class="mx-0 home" *appSi="paraMostrar">
     <div class="homecontent ml-auto d-flex flex-wrap flex-column w-50 float-right p-2">
         <div class="text-center">
             <img src="https://cdn-icons-png.flaticon.com/512/2966/2966327.png" class="img-logo">

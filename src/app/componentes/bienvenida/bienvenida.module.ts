@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { BienvenidaRoutingModule } from './bienvenida-routing.module';
 import { BienvenidaComponent } from './bienvenida.component';
 import { CargandoModule } from '../cargando/cargando.module';
+import { siSharedModule } from 'src/app/directivas/siShared.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { CargandoModule } from '../cargando/cargando.module';
   imports: [
     CommonModule,
     BienvenidaRoutingModule,
-    CargandoModule
+    CargandoModule,
+    siSharedModule
   ]
 })
 export class BienvenidaModule { }

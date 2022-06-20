@@ -1,0 +1,107 @@
+<div class="containerGeneral" *ngIf="lanzarAnimacion">
+    <div class="containerForm">
+        <div [@childAnimation]="isOpen ? 'open' : 'closed'" class="open-close-container">
+            <div class="container">
+                <div class="row justify-content-center w-100">
+                    <div class="order-md-1">
+                        <div class="card-body">
+                            <div class="justify-content-center text-center mb-3">
+                                <span class="display-4">
+                                    {{paciente.nombre}} {{paciente.apellido}}
+                                </span>
+                            </div>
+                            <div class="row text-center mb-3 text-info">
+                                <div class="col-md-3 ">
+                                    <label>
+                                        DNI:
+                                    </label>
+                                    <strong>
+                                        {{paciente.dni}}
+                                    </strong>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>
+                                        Edad:
+                                    </label>
+                                    <strong>
+                                        {{paciente.edad}}
+                                    </strong>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>
+                                        Obra Social:
+                                    </label>
+                                    <strong>
+                                        {{paciente.obraSocial}}
+                                    </strong>
+                                </div>
+                                <div class="col-md-3" *ngIf="paciente.peso">
+                                    <label>
+                                        Peso:
+                                    </label>
+                                    <strong>
+                                        {{paciente.peso}} Kg.
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="row text-center mb-3 text-info">
+                                <div class="col-md-3" *ngIf="paciente.presion">
+                                    <label>
+                                        Presion:
+                                    </label>
+                                    <strong>
+                                        {{paciente.presion}}
+                                    </strong>
+                                </div>
+                                <div class="col-md-3" *ngIf="paciente.altura">
+                                    <label>
+                                        Altura:
+                                    </label>
+                                    <strong>
+                                        {{paciente.altura}} cm.
+                                    </strong>
+                                </div>
+                                <div class="col-md-3" *ngIf="paciente.temperatura">
+                                    <label>
+                                        Temperatura:
+                                    </label>
+                                    <strong>
+                                        {{paciente.temperatura}} °C
+                                    </strong>
+                                </div>
+                                <div class="col-md-3" *ngIf="paciente.campoDinamicoUno">
+                                    <label>
+                                        {{paciente.campoDinamicoUno.clave}}:
+                                    </label>
+                                    <strong>
+                                        {{paciente.campoDinamicoUno.valor}}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="row text-center text-info">                                
+                                <div class="col-md-6" *ngIf="paciente.campoDinamicoDos">
+                                    <label>
+                                        {{paciente.campoDinamicoDos.clave}}:
+                                    </label>
+                                    <strong>
+                                        {{paciente.campoDinamicoDos.valor}}
+                                    </strong>
+                                </div>
+                                <div class="col-md-6" *ngIf="paciente.campoDinamicoTres">
+                                    <label>
+                                        {{paciente.campoDinamicoTres.clave}}:
+                                    </label>
+                                    <strong>
+                                        {{paciente.campoDinamicoTres.valor}}
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                        <button class="btn btn-danger btn-lg btn-block" (click)="toggle()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>

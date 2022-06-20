@@ -1,6 +1,6 @@
 <div class="container-seleccion p-3">
     <div class="row mb-3">
-        <div class="col-md-6">
+        <div class="col-md-12 text-center">
             <button class="btn btn-info dropdown-toggle w-75" type="button" id="dropdownMenuButton"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
                 {{tipoChart}}
@@ -10,7 +10,7 @@
                     *ngFor="let opcion of listaTipoCharts">{{opcion}}</a>
             </div>
         </div>
-        <div class="col-md-6 d-flex flex-row align-items-center">
+        <!-- <div class="col-md-6 d-flex flex-row align-items-center" *ngIf="tipoChart == 'Turnos p/ especialidad'">
             <span class="bold font-text">
                 Especialidad:
             </span>
@@ -22,8 +22,8 @@
                 <a class="dropdown-item" (click)="getValorDropdown($event, 'tipoEspecialidad')"
                     *ngFor="let especialidad of listaEspecialidades">{{especialidad.especialidad}}</a>
             </div>
-        </div>
-        <ng-template>
+        </div> -->
+        <!-- <ng-template>
             <div class="col-md-6 d-flex flex-row">
                 <button class="btn btn-info dropdown-toggle w-75 ml-3" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
@@ -35,7 +35,7 @@
                         {{especialista.apellido}}</a>
                 </div>
             </div>
-        </ng-template>
+        </ng-template> -->
     </div>
     <hr>
     <div class="row">
@@ -88,14 +88,25 @@
             <button class="btn btn-lg btn-outline-primary" (click)="graficar()">Buscar</button>
         </div>
         <div class="col-md-4 text-center">
-            <button class="btn btn-lg btn-outline-success">Descargar Excel</button>
+            <button class="btn btn-lg btn-outline-success" (click)="descargarExcel(graficoMostrar)">Descargar Excel</button>
         </div>
     </div>
     <!-- grafiquitos -->
     <div [ngSwitch]="graficoMostrar">
-        <div *ngSwitchDefault>
+        <div *ngSwitchDefault @inOut class="box">
             <app-log-ingresos [listaIngresosOriginal]="listaIngresosMostrar"></app-log-ingresos>
         </div>
-        <!-- <div *ngSwitchCase="'listadoPacientes'"></div> -->
+        <div *ngSwitchCase="'grafPorEspecialidad'" @inOut class="box">
+            <app-torta [listaData]="listaDatos" [titulo]="'Turnos por especialidad'" [cantidadData]="cantidadDatos"></app-torta>
+        </div>
+        <div *ngSwitchCase="'grafPorDia'" @inOut class="box">
+            <app-curva [listaData]="listaDatos" [titulo]="'Turnos por día'" [cantidadData]="cantidadDatos"></app-curva>
+        </div>
+        <div *ngSwitchCase="'grafTurnosSolicitados'" @inOut class="box">
+            <app-torta [listaData]="listaDatos" [titulo]="'Turnos Solicitados agrupado por Especialista'" [cantidadData]="cantidadDatos"></app-torta>
+        </div>
+        <div *ngSwitchCase="'grafTurnosFinalizados'" @inOut class="box">
+            <app-torta [listaData]="listaDatos" [titulo]="'Turnos Finalizados agrupado por Especialista'" [cantidadData]="cantidadDatos"></app-torta>
+        </div>
     </div>
 </div>
