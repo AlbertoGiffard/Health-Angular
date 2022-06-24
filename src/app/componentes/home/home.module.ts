@@ -30,6 +30,7 @@ import { LogIngresosComponent } from '../listados/log-ingresos/log-ingresos.comp
 import { CurvaComponent } from '../graficos/curva/curva.component';
 import { TortaComponent } from '../graficos/torta/torta.component';
 import { HistoriaPacienteComponent } from '../mis-pacientes/historia-paciente/historia-paciente.component';
+import { iluminarDirectiveSharedModule } from 'src/app/directivas/iluminarShared.module';
 
 
 
@@ -66,7 +67,8 @@ import { HistoriaPacienteComponent } from '../mis-pacientes/historia-paciente/hi
     MatFormFieldModule,
     MatNativeDateModule,
     CargandoModule,
-    NgChartsModule
+    NgChartsModule,
+    iluminarDirectiveSharedModule
   ],
   providers: [
     {
